@@ -3,7 +3,7 @@ name: Publish Output To Pages
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - "output/**"
       - "scripts/generate_output_pages_index.py"

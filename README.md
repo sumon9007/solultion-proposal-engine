@@ -74,7 +74,7 @@ This repository includes a GitHub Actions workflow that publishes the `output/` 
 
 How it works:
 
-1. On every push to `master` that changes `output/` or the Pages workflow, GitHub Actions runs `.github/workflows/publish-output-pages.yml`
+1. On every push to `main` that changes `output/` or the Pages workflow, GitHub Actions runs `.github/workflows/publish-output-pages.yml`
 2. The workflow generates `output/index.html` so the published site has a browsable landing page
 3. The workflow deploys the full `output/` directory to GitHub Pages
 
@@ -83,7 +83,7 @@ To enable it in GitHub:
 1. Open the repository settings
 2. Go to `Pages`
 3. Set the source to `GitHub Actions`
-4. Push changes to `master` or run the workflow manually from the `Actions` tab
+4. Push changes to `main` or run the workflow manually from the `Actions` tab
 
 The published site will expose the current contents of:
 
