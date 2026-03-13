@@ -6,8 +6,11 @@ This guide explains how to use the Solution Proposal Engine day-to-day.
 
 1. Claude Code installed and running
 2. Python 3.9+ available
-3. Dependencies installed: `pip install markdown python-dotenv`
-4. `.env` file configured from `.env.example`
+3. Dependencies installed: `pip install -r requirements.txt`
+   - HTML export: `markdown`
+   - PDF export: `weasyprint markdown`
+   - Word export: `python-docx`
+4. `.env` file configured from `.env.example` (run `cp .env.example .env` and populate company details)
 
 ---
 
@@ -154,15 +157,35 @@ Claude will scan all typed subdirectories under `output/drafts/` and `output/app
 
 ---
 
-## Exporting to HTML
+## Exporting
+
+All exports require an `_approved.md` file and save to `output/exports/` with auto-incrementing version numbers.
+
+### HTML
 
 ```bash
-python scripts/export_proposal.py output/approved/proposals/2026-03-11_acme_cloud-migration_proposal_approved.md
+python scripts/export_proposal.py output/approved/proposals/[STEM]_proposal_approved.md
 ```
 
-Output is saved to `output/exports/`. Open in any browser or convert to PDF via Print > Save as PDF.
+Open in any browser. Brand colours and logo from `.env` are applied automatically.
 
-For visual consistency across HTML, PDF, Word, and PowerPoint outputs, follow `docs/brand-guidelines.md`.
+### PDF (requires WeasyPrint)
+
+```bash
+python scripts/export_pdf.py output/approved/proposals/[STEM]_proposal_approved.md
+```
+
+Renders the branded HTML to a print-ready PDF. If WeasyPrint is not installed, use your browser's Print > Save as PDF on the HTML export instead.
+
+### Word (.docx, requires python-docx)
+
+```bash
+python scripts/export_word.py output/approved/proposals/[STEM]_proposal_approved.md
+```
+
+Produces a branded `.docx` with heading styles, table formatting, running header, and page-number footer.
+
+For visual brand configuration (colours, fonts, logo), see `docs/brand-guidelines.md` and the `BRAND_*` variables in `.env`.
 
 ---
 
@@ -196,6 +219,7 @@ Available skills:
 - `exec-summary-writer` — board-level executive summaries
 - `scope-writer` — precise scope of work documents
 - `delivery-plan-writer` — phased delivery planning
+- `brand-style-writer` — brand configuration, export troubleshooting, logo and colour setup
 
 ---
 

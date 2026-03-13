@@ -18,7 +18,6 @@ from __future__ import annotations
 
 import shutil
 import sys
-from datetime import datetime
 from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent))
@@ -26,11 +25,13 @@ from helpers import (
     APPROVED_DIR,
     append_approval_log,
     bold,
+    build_log_entry,
     draft_to_approved_name,
     ensure_output_dirs,
     fail,
     info,
     ok,
+    parse_stem,
     read_file,
     resolve_proposal_path,
     warn,
@@ -87,22 +88,33 @@ def approve(draft_path: Path) -> bool:
             print(info("Approval cancelled."))
             return False
 
-    # ── 4. Copy to approved ───────────────────────────────────────
+    # ── 4. Confirm approval intent ────────────────────────────────
+    print()
+    print(info(f"  Draft:    {draft_path.name}"))
+    print(info(f"  Approved: {approved_path.name}"))
+    print()
+    answer = input("Approve this draft? (yes/no): ").strip().lower()
+    if answer != "yes":
+        print(info("Approval cancelled."))
+        return False
+
+    # ── 5. Copy to approved ───────────────────────────────────────
     shutil.copy2(draft_path, approved_path)
     print(ok(f"Proposal approved: {approved_path}"))
 
-    # ── 5. Log approval ───────────────────────────────────────────
-    log_entry = {
-        "approved_at": datetime.now().isoformat(timespec="seconds"),
-        "draft_file": str(draft_path),
-        "approved_file": str(approved_path),
-        "approved_by": "user",
-        "validation_passed": True,
-    }
+    # ── 6. Log approval ───────────────────────────────────────────
+    stem_parts = parse_stem(draft_path.stem.replace("_proposal_draft", "").replace("_draft", ""))
+    stem = f"{stem_parts[0]}_{stem_parts[1]}_{stem_parts[2]}" if stem_parts else ""
+    log_entry = build_log_entry(
+        draft_file=str(draft_path),
+        approved_file=str(approved_path),
+        stem=stem,
+        artifact_type="proposal",
+    )
     append_approval_log(log_entry)
     print(ok(f"Approval logged to: {APPROVED_DIR / 'approval-log.json'}"))
 
-    # ── 6. Next step ──────────────────────────────────────────────
+    # ── 7. Next step ──────────────────────────────────────────────
     print()
     print(bold("NEXT STEP — Export to HTML:"))
     print(info(f"  python scripts/export_proposal.py {approved_path}"))

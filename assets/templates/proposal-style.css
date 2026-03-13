@@ -405,3 +405,12 @@ blockquote {
     size: A4;
   }
 }
+
+/* ─── Logo support ──────────────────────────────────────────────────────── */
+
+.company-logo {
+  height: 28px;
+  width: auto;
+  display: block;
+  vertical-align: middle;
+}

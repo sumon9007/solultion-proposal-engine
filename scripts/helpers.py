@@ -50,6 +50,7 @@ COMMERCIAL_SAFETY_MARKER = "[PRICING REQUIRED — DO NOT SEND WITHOUT SIGN-OFF]"
 # ─── Required Section Headings ────────────────────────────────────────────────
 
 REQUIRED_SECTIONS = [
+    "Cover Page",
     "Executive Summary",
     "Understanding of Requirements",
     "Proposed Solution",
@@ -66,6 +67,7 @@ REQUIRED_SECTIONS = [
 
 # Accepted heading variants (lowercased for matching)
 SECTION_VARIANTS: dict[str, list[str]] = {
+    "Cover Page": ["cover page", "cover"],
     "Executive Summary": ["executive summary"],
     "Understanding of Requirements": [
         "understanding of requirements",
@@ -226,6 +228,26 @@ def append_approval_log(entry: dict) -> None:
     APPROVAL_LOG.write_text(json.dumps(log, indent=2), encoding="utf-8")
 
 
+def build_log_entry(
+    draft_file: str,
+    approved_file: str,
+    stem: str = "",
+    artifact_type: str = "proposal",
+    pricing_safety_marker_present: bool = False,
+) -> dict:
+    """Build a unified approval log entry for both single-draft and package approvals."""
+    return {
+        "approved_at": datetime.now().isoformat(timespec="seconds"),
+        "stem": stem,
+        "artifact_type": artifact_type,
+        "draft_file": draft_file,
+        "approved_file": approved_file,
+        "approved_by": "user",
+        "validation_passed": True,
+        "pricing_safety_marker_present": pricing_safety_marker_present,
+    }
+
+
 # ─── Filename Utilities ───────────────────────────────────────────────────────
 
 def draft_to_approved_name(draft_path: Path) -> Path:
@@ -241,17 +263,28 @@ def approved_to_export_name(approved_path: Path, version: int = 1) -> Path:
 
 
 def next_export_version(approved_path: Path) -> int:
-    """Determine the next export version number for a proposal."""
+    """Determine the next export version number for HTML output."""
+    return next_export_version_for(approved_path, "html")
+
+
+def next_export_version_for(approved_path: Path, extension: str) -> int:
+    """Determine the next export version number for any format (html, pdf, docx)."""
     base = approved_path.stem.replace("_approved", "")
-    existing = list(EXPORTS_DIR.glob(f"{base}_v*.html"))
+    existing = list(EXPORTS_DIR.glob(f"{base}_v*.{extension}"))
     if not existing:
         return 1
     versions = []
     for f in existing:
-        m = re.search(r"_v(\d+)\.html$", f.name)
+        m = re.search(rf"_v(\d+)\.{re.escape(extension)}$", f.name)
         if m:
             versions.append(int(m.group(1)))
     return max(versions) + 1 if versions else 1
+
+
+def approved_to_export_name_for(approved_path: Path, extension: str, version: int = 1) -> Path:
+    """Convert an approved filename to its export name for any format."""
+    base = approved_path.stem.replace("_approved", "")
+    return EXPORTS_DIR / f"{base}_v{version}.{extension}"
 
 
 # ─── Artifact Path Utilities ──────────────────────────────────────────────────

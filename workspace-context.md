@@ -40,6 +40,26 @@ All artifacts share the stem:
 
 Nothing moves from `output/drafts/` to `output/approved/` until it passes review and validation.
 
+## First-Time Setup
+
+Before running the export script for the first time, configure your company details:
+
+```bash
+cp .env.example .env
+```
+
+Then edit `.env` and populate:
+
+```
+COMPANY_NAME=Your Company Name
+COMPANY_EMAIL=proposals@yourcompany.com
+COMPANY_PHONE=+44 20 XXXX XXXX
+COMPANY_WEBSITE=https://www.yourcompany.com
+```
+
+Without `.env`, the HTML export will fall back to generic placeholder values.
+
 ## Deprecated Paths
 
 Root-level `drafts/` and `approved/` folders are deprecated and should not be used for new work.
+`output/html/` and `output/pdf/` have been removed — all exports go to `output/exports/`.

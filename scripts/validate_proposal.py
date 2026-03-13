@@ -199,6 +199,38 @@ def check_assumptions_count(content: str, result: ValidationResult) -> None:
     else:
         result.add_fail(f"Assumptions: only {count} item(s) found — minimum 3 required")
 
+    # Warn (non-blocking) if assumptions don't follow the required format
+    required_prefix = "it is assumed that"
+    formatted = sum(
+        1 for line in assumptions_content.splitlines()
+        if line.strip().lower().startswith(required_prefix)
+    )
+    if count > 0 and formatted == 0:
+        result.add_warn(
+            'Assumptions may not follow required format: each should begin "It is assumed that..."'
+        )
+
+
+def check_exclusions_count(content: str, result: ValidationResult) -> None:
+    """Check that exclusions section has at least 3 items."""
+    for variant in SECTION_VARIANTS["Exclusions"]:
+        exclusions_content = find_section_content(content, variant)
+        if exclusions_content:
+            break
+    else:
+        exclusions_content = ""
+
+    if not exclusions_content:
+        return
+
+    items = re.findall(r"^(\s*[-*]|\s*\d+\.)", exclusions_content, re.MULTILINE)
+    count = len(items)
+
+    if count >= 3:
+        result.add_pass(f"Exclusions: {count} items found (minimum 3)")
+    else:
+        result.add_fail(f"Exclusions: only {count} item(s) found — minimum 3 required")
+
 
 # ─── Report ───────────────────────────────────────────────────────────────────
 
@@ -265,6 +297,7 @@ def validate(path: Path) -> ValidationResult:
     check_word_counts(content, result)
     check_deliverables_count(content, result)
     check_assumptions_count(content, result)
+    check_exclusions_count(content, result)
 
     return result
 

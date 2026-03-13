@@ -34,6 +34,7 @@ from helpers import (
     CSS_STYLESHEET,
     EXPORTS_DIR,
     HTML_TEMPLATE,
+    PROJECT_ROOT,
     approved_to_export_name,
     bold,
     ensure_output_dirs,
@@ -159,6 +160,60 @@ def _inline_md(text: str) -> str:
     return text
 
 
+# ─── Brand Helpers ────────────────────────────────────────────────────────────
+
+def build_brand_css_overrides(env: dict[str, str]) -> str:
+    """Build a CSS :root block overriding CSS variables from .env BRAND_* settings."""
+    overrides: dict[str, str] = {}
+    if env.get("BRAND_PRIMARY_COLOUR"):
+        overrides["--blue-500"] = env["BRAND_PRIMARY_COLOUR"]
+    if env.get("BRAND_SECONDARY_COLOUR"):
+        overrides["--navy-900"] = env["BRAND_SECONDARY_COLOUR"]
+        overrides["--navy-950"] = env["BRAND_SECONDARY_COLOUR"]
+    if env.get("BRAND_ACCENT_COLOUR"):
+        overrides["--teal-500"] = env["BRAND_ACCENT_COLOUR"]
+    if env.get("BRAND_FONT_HEADINGS"):
+        overrides["--font-heading"] = (
+            f'"{env["BRAND_FONT_HEADINGS"]}", "Aptos Display", "Segoe UI", sans-serif'
+        )
+    if env.get("BRAND_FONT_BODY"):
+        overrides["--font-body"] = (
+            f'"{env["BRAND_FONT_BODY"]}", "Aptos", "Segoe UI", sans-serif'
+        )
+
+    if not overrides:
+        return ""
+
+    lines = ["/* Brand overrides from .env */", ":root {"]
+    for var, value in overrides.items():
+        lines.append(f"  {var}: {value};")
+    lines.append("}")
+    return "\n".join(lines)
+
+
+def build_logo_html(env: dict[str, str]) -> str:
+    """Return an <img> tag for the logo, or escaped company name text if no logo is set."""
+    import base64
+    logo_path_str = env.get("LOGO_PATH", "").strip()
+    company_name = html.escape(env.get("COMPANY_NAME", "Your Company"))
+
+    if not logo_path_str:
+        return company_name
+
+    logo_path = Path(logo_path_str)
+    if not logo_path.is_absolute():
+        logo_path = PROJECT_ROOT / logo_path
+
+    if not logo_path.exists():
+        return company_name
+
+    suffix = logo_path.suffix.lower()
+    mime_map = {".png": "image/png", ".svg": "image/svg+xml", ".jpg": "image/jpeg", ".jpeg": "image/jpeg"}
+    mime = mime_map.get(suffix, "image/png")
+    data = base64.b64encode(logo_path.read_bytes()).decode()
+    return f'<img src="data:{mime};base64,{data}" alt="{company_name}" class="company-logo">'
+
+
 # ─── Template Injection ───────────────────────────────────────────────────────
 
 def build_html(
@@ -168,6 +223,7 @@ def build_html(
     client_name: str,
     export_date: str,
     css_content: str,
+    logo_html: str = "",
 ) -> str:
     """Build the final HTML document."""
 
@@ -176,12 +232,16 @@ def build_html(
     else:
         template = _default_html_template()
 
+    company_name_escaped = html.escape(env.get("COMPANY_NAME", "Your Company"))
+    company_identity = logo_html if logo_html else company_name_escaped
+
     replacements = {
         "{{PROPOSAL_CONTENT}}": proposal_html,
         "{{TITLE}}": html.escape(title),
         "{{CLIENT_NAME}}": html.escape(client_name),
         "{{EXPORT_DATE}}": export_date,
-        "{{COMPANY_NAME}}": html.escape(env.get("COMPANY_NAME", "Your Company")),
+        "{{COMPANY_NAME}}": company_name_escaped,
+        "{{COMPANY_IDENTITY}}": company_identity,
         "{{COMPANY_EMAIL}}": html.escape(env.get("COMPANY_EMAIL", "")),
         "{{COMPANY_PHONE}}": html.escape(env.get("COMPANY_PHONE", "")),
         "{{COMPANY_WEBSITE}}": html.escape(env.get("COMPANY_WEBSITE", "")),
@@ -222,15 +282,24 @@ def _default_html_template() -> str:
 </html>"""
 
 
-def _extract_client_name(content: str) -> str:
-    """Attempt to extract client name from the proposal cover page."""
+def _extract_client_name(content: str) -> tuple[str, bool]:
+    """Attempt to extract client name from the proposal. Returns (name, found)."""
+    # Pattern 1: bold cover page label
     m = re.search(r"\*\*Prepared for:\*\*\s*(.+)", content)
     if m:
-        return m.group(1).strip()
+        return m.group(1).strip(), True
+
+    # Pattern 2: plain cover page label
     m = re.search(r"Prepared for:\s*(.+)", content)
     if m:
-        return m.group(1).strip()
-    return "Client"
+        return m.group(1).strip(), True
+
+    # Pattern 3: "for [ClientName]" in the first 500 characters (document preamble)
+    m = re.search(r"\bfor\s+([A-Z][A-Za-z0-9\s&.,-]{2,40})", content[:500])
+    if m:
+        return m.group(1).strip(), True
+
+    return "Client", False
 
 
 def _extract_title(content: str) -> str:
@@ -266,22 +335,34 @@ def export(approved_path: Path) -> bool:
 
     # ── Extract metadata ─────────────────────────────────────────
     title = _extract_title(md_content)
-    client_name = _extract_client_name(md_content)
+    client_name, client_found = _extract_client_name(md_content)
     export_date = datetime.now().strftime("%d %B %Y")
 
     print(info(f"  Title:    {title}"))
     print(info(f"  Client:   {client_name}"))
+    if not client_found:
+        print(warn("  Client name could not be extracted — falling back to 'Client'."))
+        print(warn("  Add 'Prepared for: [Client Name]' to the cover page to fix this."))
     print(info(f"  Date:     {export_date}"))
 
     # ── Convert markdown ─────────────────────────────────────────
     print(info("  Converting markdown to HTML..."))
     proposal_html = markdown_to_html(md_content)
 
-    # ── Load CSS ──────────────────────────────────────────────────
+    # ── Load CSS and apply brand overrides ───────────────────────
     css_content = read_file(CSS_STYLESHEET) if CSS_STYLESHEET.exists() else _default_css()
+    brand_overrides = build_brand_css_overrides(env)
+    if brand_overrides:
+        css_content = brand_overrides + "\n" + css_content
+        print(info("  Brand CSS overrides applied from .env"))
+
+    # ── Build logo / company identity ─────────────────────────────
+    logo_html = build_logo_html(env)
+    if env.get("LOGO_PATH"):
+        print(info(f"  Logo:     {env['LOGO_PATH']}"))
 
     # ── Build HTML document ───────────────────────────────────────
-    final_html = build_html(proposal_html, env, title, client_name, export_date, css_content)
+    final_html = build_html(proposal_html, env, title, client_name, export_date, css_content, logo_html)
 
     # ── Determine output path ─────────────────────────────────────
     version = next_export_version(approved_path)
@@ -292,9 +373,10 @@ def export(approved_path: Path) -> bool:
     print(ok(f"Exported: {export_path}"))
     print(ok(f"Version:  v{version}"))
     print()
-    print(bold("NEXT STEP:"))
-    print(info(f"  Open in browser: file://{export_path.resolve()}"))
-    print(info("  Or convert to PDF using your browser's Print > Save as PDF"))
+    print(bold("NEXT STEPS:"))
+    print(info(f"  Open in browser:  file://{export_path.resolve()}"))
+    print(info(f"  Export to PDF:    python scripts/export_pdf.py {approved_path}"))
+    print(info(f"  Export to Word:   python scripts/export_word.py {approved_path}"))
     print()
 
     return True

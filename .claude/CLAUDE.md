@@ -33,7 +33,7 @@ All rules in `.claude/rules/` are always active:
 - `approval-and-export-rules.md` — quality gates for approval and export
 - `commercial-safety-rules.md` — pricing constraints (never invent figures)
 
-Use `docs/review-checklist.md`, `docs/approval-instructions.md`, and `docs/brand-guidelines.md` as supporting governance references when reviewing, approving, or exporting customer-facing deliverables.
+Use `docs/review-and-approval-guide.md` and `docs/brand-guidelines.md` as supporting governance references when reviewing, approving, or exporting customer-facing deliverables.
 
 ## Skills Available
 
@@ -47,3 +47,4 @@ Load a skill by telling Claude to adopt the persona:
 - `exec-summary-writer` — board-level executive summaries
 - `scope-writer` — precise scope of work documents
 - `delivery-plan-writer` — phased delivery planning
+- `brand-style-writer` — brand configuration, HTML/PDF/Word export, logo and colour setup

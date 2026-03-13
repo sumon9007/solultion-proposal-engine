@@ -137,5 +137,7 @@ See `.claude/rules/commercial-safety-rules.md` for the full constraint set.
 | `scripts/approve_draft.py` | Promote a single proposal draft to approved |
 | `scripts/approve_package.py` | Validate and approve all artifacts in a package |
 | `scripts/generate_package.py` | Initialise package manifest and directories |
-| `scripts/export_proposal.py` | Export approved proposal to HTML |
+| `scripts/export_proposal.py` | Export approved proposal to branded HTML |
+| `scripts/export_pdf.py` | Export approved proposal to branded PDF (requires WeasyPrint) |
+| `scripts/export_word.py` | Export approved proposal to branded Word (.docx) (requires python-docx) |
 | `scripts/helpers.py` | Shared utilities (paths, constants, manifest I/O) |

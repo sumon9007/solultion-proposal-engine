@@ -114,3 +114,25 @@ output/exports/2026-03-11_acme_cloud-migration_proposal_v1.html
 | Northgate Pharma Ltd | `northgate-pharma` |
 | H&M Logistics | `hm-logistics` |
 | UK Department for Transport | `uk-dft` |
+
+---
+
+## Output Directory Layout
+
+| Location | Contains |
+|----------|----------|
+| `output/drafts/proposals/` | Full proposal drafts |
+| `output/drafts/exec-summaries/` | Executive summary drafts |
+| `output/drafts/scopes/` | Scope of work drafts |
+| `output/drafts/delivery-plans/` | Delivery plan drafts |
+| `output/drafts/pricing/` | Pricing artifact drafts |
+| `output/approved/[type]/` | Approved locked artifacts (mirrors drafts structure) |
+| `output/exports/` | Rendered HTML, PDF, and Word exports |
+| `output/packages/` | Package manifests (JSON) |
+| `output/intake/` | Normalised requirements files |
+
+## Overwrite Policy
+
+- Do not overwrite approved artifacts — create a new draft with a revised date stem instead
+- Do not overwrite existing exports — each re-export auto-increments the version number
+- Do not delete draft files when approving — both draft and approved copies are kept

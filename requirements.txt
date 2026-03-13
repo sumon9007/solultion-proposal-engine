@@ -1,0 +1,18 @@
+# Solution Proposal Engine — Python Dependencies
+#
+# Install all:
+#   pip install -r requirements.txt
+#
+# Or install only what you need:
+#   HTML export only:  pip install markdown
+#   PDF export:        pip install weasyprint markdown
+#   Word export:       pip install python-docx
+
+# ─── HTML export (strongly recommended) ─────────────────────────────────────
+markdown>=3.5          # Converts proposal markdown to HTML; falls back to basic converter if absent
+
+# ─── PDF export ──────────────────────────────────────────────────────────────
+weasyprint>=61.0       # Renders branded HTML to PDF via scripts/export_pdf.py
+
+# ─── Word export ─────────────────────────────────────────────────────────────
+python-docx>=1.1       # Produces branded .docx files via scripts/export_word.py

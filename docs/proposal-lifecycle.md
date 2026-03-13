@@ -148,15 +148,26 @@ This document describes the end-to-end lifecycle of a technical solution proposa
 
 ## Stage 7: Export
 
-**Command:** `/proposal-export` or `python scripts/export_proposal.py <path-to-approved>`
+**Command:** `/proposal-export` or one of the export scripts below
 
-**What happens:**
-1. Script reads the approved markdown file
-2. Converts to HTML using `assets/templates/proposal-template.html` and `proposal-style.css`
-3. Injects company metadata from `.env`
-4. Saves output to `output/exports/` with timestamp
+| Format | Command | Dependency |
+|--------|---------|------------|
+| HTML | `python scripts/export_proposal.py <approved.md>` | `pip install markdown` |
+| PDF | `python scripts/export_pdf.py <approved.md>` | `pip install weasyprint` |
+| Word | `python scripts/export_word.py <approved.md>` | `pip install python-docx` |
 
-**Output:** `YYYY-MM-DD_[client-slug]_[solution-type]_v[N].html`
+**What happens (all formats):**
+1. Script guards against draft files — only `_approved.md` files are accepted
+2. Reads company metadata and brand settings from `.env`
+3. Injects brand colours (CSS variable overrides) and logo if `LOGO_PATH` is set
+4. Saves versioned output to `output/exports/` (auto-increments `v1`, `v2`, etc.)
+
+**Output examples:**
+```
+output/exports/[STEM]_proposal_v1.html
+output/exports/[STEM]_proposal_v1.pdf
+output/exports/[STEM]_proposal_v1.docx
+```
 
 ---
 
@@ -171,4 +182,6 @@ This document describes the end-to-end lifecycle of a technical solution proposa
 | Draft (pricing) | `output/drafts/pricing/` | `[STEM]_pricing_draft.md` |
 | Package manifest | `output/packages/` | `[STEM]_package.json` |
 | Approved | `output/approved/[type]/` | `[STEM]_[type]_approved.md` |
-| Exported | `output/exports/` | `[STEM]_proposal_v[N].html` |
+| Exported (HTML) | `output/exports/` | `[STEM]_proposal_v[N].html` |
+| Exported (PDF) | `output/exports/` | `[STEM]_proposal_v[N].pdf` |
+| Exported (Word) | `output/exports/` | `[STEM]_proposal_v[N].docx` |
