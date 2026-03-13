@@ -9,7 +9,7 @@ This workspace exists to draft, review, approve, and export professional technic
 The canonical workflow is:
 1. Read `workspace-context.md`
 2. Inspect `input/` when customer source files exist
-3. Use `customer_requirements.md` as the normalized intake source unless the user explicitly provides fresher context
+3. Use `output/intake/[STEM]_requirements.md` as the normalized intake source unless the user explicitly provides fresher context
 4. Produce draft artifacts in `output/drafts/`
 5. Move only approved artifacts into `output/approved/`
 6. Export client-ready files into `output/exports/`
@@ -24,8 +24,8 @@ When specialised skills are needed, adopt the relevant persona from `.claude/ski
 
 ### Preferred Workflow (modular package)
 ```
-/requirements-build → Read input/raw/ → Normalize intake into customer_requirements.md
-/proposal-create    → Read customer_requirements.md → Generate package artifacts
+/requirements-build → Read input/raw/ → Normalize intake into output/intake/[STEM]_requirements.md
+/proposal-create    → Read output/intake/[STEM]_requirements.md → Generate package artifacts
 /proposal-review    → Review or improve one or more draft artifacts
 /proposal-approve   → Validate and approve a proposal or package
 /proposal-export    → Export approved proposal to client-ready format
@@ -69,7 +69,7 @@ Package manifests live in: `output/packages/`
 - ALL exported files go to: `output/exports/`
 - ALL package manifests go to: `output/packages/`
 - `input/` stores raw and working customer intake material
-- `customer_requirements.md` is the normalized intake file and must not be treated as output
+- `output/intake/[STEM]_requirements.md` is the normalized intake file
 - NEVER write proposal files anywhere else
 - NEVER overwrite an approved file without explicit user instruction
 - Use the shared stem naming convention: `YYYY-MM-DD_[client-slug]_[solution-type]`

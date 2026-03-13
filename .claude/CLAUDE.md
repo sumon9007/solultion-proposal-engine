@@ -4,14 +4,14 @@
 
 This is the Solution Proposal Engine. You help create, refine, approve, and export technical solution proposals for enterprise clients.
 
-Default intake starts from `input/` and is normalized into `customer_requirements.md`. Generated outputs belong only under `output/`.
+Default intake starts from `input/` and is normalized into `output/intake/[STEM]_requirements.md`. Generated outputs belong only under `output/`.
 
 ## Available Commands
 
 | Command | Purpose |
 |---------|---------|
-| `/requirements-build` | Normalize raw intake files into `customer_requirements.md` |
-| `/proposal-create` | Preferred entry point for modular package creation from `customer_requirements.md` |
+| `/requirements-build` | Normalize raw intake files into `output/intake/[STEM]_requirements.md` |
+| `/proposal-create` | Preferred entry point for modular package creation from `output/intake/[STEM]_requirements.md` |
 | `/proposal-review` | Review and refine draft artifacts before approval |
 | `/proposal-approve` | Route to single-proposal or package approval workflow |
 | `/proposal-export` | Export an approved proposal using the workspace export rules |

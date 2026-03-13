@@ -23,6 +23,7 @@ These rules govern where all files are created, read, and saved within this proj
 | HTML exports | `output/exports/` | `[STEM]_proposal_v[N].html` |
 | Package manifests | `output/packages/` | `[STEM]_package.json` |
 | Approval log | `output/approved/` | `approval-log.json` |
+| Normalized intake file | `output/intake/` | `[STEM]_requirements.md` |
 
 ### Intake Locations
 
@@ -61,7 +62,7 @@ output/packages/2026-03-11_acme_cloud-migration_package.json
 
 1. **NEVER save a proposal or artifact file outside of `output/`** — not in `src/`, not in project root, not in `docs/`
 2. **ALWAYS gather customer-provided source files under `input/raw/` first** when source material exists
-3. **ALWAYS use `customer_requirements.md` as the normalized intake source** for a new engagement unless the user explicitly provides a different source
+3. **ALWAYS use `output/intake/[STEM]_requirements.md` as the normalized intake source** for a new engagement unless the user explicitly provides a different source
 4. **NEVER overwrite an `_approved.md` file** without explicit user confirmation and a stated reason
 5. **NEVER delete a `_draft.md` file** when approving — keep both draft and approved versions
 6. **ALWAYS save artifacts to their typed subdirectory** — do not write directly to `output/drafts/` or `output/approved/` (flat)

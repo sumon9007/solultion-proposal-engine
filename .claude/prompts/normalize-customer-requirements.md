@@ -1,6 +1,6 @@
 # Prompt: Normalize Customer Requirements
 
-Use this prompt to convert raw source materials into a structured `customer_requirements.md`.
+Use this prompt to convert raw source materials into a structured `output/intake/[STEM]_requirements.md`.
 
 ## Inputs
 
@@ -20,7 +20,7 @@ Produce a fact-based, proposal-ready requirements summary for internal use befor
 
 ## Required Output Structure
 
-Write or update `customer_requirements.md` using these sections:
+Write or update `output/intake/[STEM]_requirements.md` using these sections:
 
 1. Opportunity Snapshot
 2. Business Context

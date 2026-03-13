@@ -26,9 +26,17 @@ YYYY-MM-DD_[client-slug]_[solution-type]
 
 | Component | Values |
 |-----------|--------|
-| `artifact-type` | `proposal`, `exec-summary`, `scope`, `delivery-plan`, `pricing` |
+| `artifact-type` | `requirements`, `proposal`, `exec-summary`, `scope`, `delivery-plan`, `pricing` |
 | `status` | `draft`, `approved` |
 | `ext` | `.md` (artifacts), `.html` (exports), `.json` (manifests) |
+
+For the intake artifact, use this simplified pattern:
+
+```
+[STEM]_requirements.md
+```
+
+This file lives in `output/intake/` and acts as the normalized intake source before proposal drafting begins.
 
 ---
 
@@ -68,6 +76,9 @@ If none of these fit, use a short descriptive lowercase hyphenated phrase.
 ```
 # Stem for Acme Corp cloud migration package (11 March 2026)
 2026-03-11_acme_cloud-migration
+
+# Intake artifact
+output/intake/2026-03-11_acme_cloud-migration_requirements.md
 
 # Draft artifacts
 output/drafts/proposals/2026-03-11_acme_cloud-migration_proposal_draft.md

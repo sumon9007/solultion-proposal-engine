@@ -17,6 +17,7 @@ venv/
 env/
 
 # Output — track folder structure but not generated content
+output/intake/**/*.md
 output/drafts/**/*.md
 output/approved/**/*.md
 output/exports/**/*.html

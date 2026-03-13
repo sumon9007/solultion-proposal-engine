@@ -7,7 +7,7 @@ This workspace is used to generate professional, repeatable solution proposals f
 ## Canonical Operating Model
 
 1. Capture raw customer material in `input/raw/`
-2. Normalize source material into `customer_requirements.md`
+2. Normalize source material into `output/intake/[STEM]_requirements.md`
 3. Generate one proposal package with a shared stem
 4. Store drafts only in `output/drafts/`
 5. Approve only completed, reviewed artifacts into `output/approved/`
@@ -30,7 +30,7 @@ All artifacts share the stem:
 ## Source-of-Truth Rules
 
 - `input/raw/` is the source area for customer-provided files
-- `customer_requirements.md` is the normalized intake source for proposal creation
+- `output/intake/[STEM]_requirements.md` is the normalized intake source for proposal creation
 - `assets/static/` holds reusable approved content
 - `context/reusable/` holds reusable reference knowledge
 - `docs/` holds governance and operating guidance

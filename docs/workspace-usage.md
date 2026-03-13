@@ -14,7 +14,7 @@ This guide explains how to use the Solution Proposal Engine day-to-day.
 ## Intake First
 
 Before starting a proposal, collect the available customer source material in `input/raw/` and list it in `input/source-register.md`.
-Then normalize that material into `customer_requirements.md`. Treat that file as the default intake source for proposal generation. If the user provides fresher details in chat, update the working context accordingly.
+Then normalize that material into `output/intake/[STEM]_requirements.md`. Treat that file as the default intake source for proposal generation. If the user provides fresher details in chat, update the working context accordingly.
 
 ---
 
@@ -37,7 +37,31 @@ Then run:
 /requirements-build
 ```
 
-Review the generated `customer_requirements.md` before creating a proposal.
+Review the generated `output/intake/[STEM]_requirements.md` before creating a proposal.
+
+### How The Requirement-Capture Flow Works
+
+The requirement-capture flow exists to convert raw customer material into one clean drafting input.
+
+1. Put the original source files into `input/raw/`
+2. Record them in `input/source-register.md`
+3. Run `/requirements-build`
+4. Extract only the useful facts into `output/intake/[STEM]_requirements.md`
+5. Review open questions and missing details
+6. Start `/proposal-create` only after the normalized requirements look correct
+
+This step is intentionally not proposal drafting. It is an intake-normalization step so we do not mix:
+
+- raw customer documents
+- extracted working notes
+- proposal-ready requirements
+
+Use this rule of thumb:
+
+- raw files answer: what did the customer send
+- `output/intake/[STEM]_requirements.md` answers: what do we understand well enough to propose against
+
+If the source is a PDF, Claude may first extract the text into `input/working/` before summarizing it. That extracted text is only a working artifact; the real intake output remains `output/intake/[STEM]_requirements.md`.
 
 ---
 
@@ -51,7 +75,7 @@ Use this flow for new engagements. It produces five independent artifacts that c
 /proposal-create
 ```
 
-Claude will read `customer_requirements.md`, ask any missing structured questions, and then generate all artifact files.
+Claude will read `output/intake/[STEM]_requirements.md`, ask any missing structured questions, and then generate all artifact files.
 
 ### Step 2 — Review each artifact
 

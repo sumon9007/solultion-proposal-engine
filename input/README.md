@@ -6,14 +6,14 @@ Use the `input/` area to collect raw customer materials before drafting a propos
 
 Turn mixed source material such as RFPs, emails, Word files, PDFs, meeting notes, and commercial references into a single normalized file:
 
-`customer_requirements.md`
+`output/intake/[STEM]_requirements.md`
 
 ## Workflow
 
 1. Place source files into the appropriate `input/raw/` subfolder
 2. Record what was received in `input/source-register.md`
 3. Run the intake normalization step using `/requirements-build`
-4. Review the generated `customer_requirements.md`
+4. Review the generated `output/intake/[STEM]_requirements.md`
 5. Start proposal generation with `/proposal-create`
 
 ## Folder Rules

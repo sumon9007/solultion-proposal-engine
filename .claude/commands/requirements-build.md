@@ -1,4 +1,4 @@
-Normalize raw customer source material into `customer_requirements.md`.
+Normalize raw customer source material into `output/intake/[STEM]_requirements.md`.
 
 ## Purpose
 
@@ -17,9 +17,10 @@ Use this command before proposal creation when the customer has provided input m
    - timeline
    - commercial status
    - stakeholder and procurement signals
-4. Write a normalized summary into `customer_requirements.md`
-5. If the source material conflicts, record the conflict clearly in `customer_requirements.md`
-6. If key information is missing, list targeted follow-up questions at the end of `customer_requirements.md`
+4. Build the intake stem using the standard naming convention: `YYYY-MM-DD_[client-slug]_[solution-type]`
+5. Write a normalized summary into `output/intake/[STEM]_requirements.md`
+6. If the source material conflicts, record the conflict clearly in the intake file
+7. If key information is missing, list targeted follow-up questions at the end of the intake file
 
 ## Rules
 
@@ -27,4 +28,4 @@ Use this command before proposal creation when the customer has provided input m
 - Do not invent pricing, scope, or commitments
 - Keep raw source files in `input/raw/`
 - Keep temporary extraction notes in `input/working/`
-- Do not start proposal drafting until `customer_requirements.md` is reviewed
+- Do not start proposal drafting until `output/intake/[STEM]_requirements.md` is reviewed

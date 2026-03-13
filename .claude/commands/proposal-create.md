@@ -6,8 +6,8 @@ Use this command as the default entry point for a new engagement.
 
 ## Instructions
 
-1. Read `customer_requirements.md`
-2. If `customer_requirements.md` is empty, outdated, or not yet normalized from `input/`, direct the user to run `/requirements-build` first
+1. Read the relevant `output/intake/[STEM]_requirements.md` file
+2. If no intake file exists, or the intake file is empty, outdated, or not yet normalized from `input/`, direct the user to run `/requirements-build` first
 3. If required details are still missing after normalization, ask focused follow-up questions
 4. Default to the modular package workflow in `.claude/commands/create-package.md`
 5. Use the shared stem naming convention

@@ -5,7 +5,7 @@ This document describes the end-to-end lifecycle of a technical solution proposa
 ## Source of Truth
 
 - `input/raw/` stores the original customer-provided materials
-- `customer_requirements.md` is the normalized intake artifact for a new engagement
+- `output/intake/[STEM]_requirements.md` is the normalized intake artifact for a new engagement
 - `output/drafts/` contains work in progress only
 - `output/approved/` contains approved and locked artifacts only
 - `output/exports/` contains client-ready rendered deliverables
@@ -51,9 +51,9 @@ This document describes the end-to-end lifecycle of a technical solution proposa
 1. Customer source files are stored in `input/raw/`
 2. The source list is maintained in `input/source-register.md`
 3. Claude reviews the relevant source material
-4. Claude normalizes the intake into `customer_requirements.md`
+4. Claude normalizes the intake into `output/intake/[STEM]_requirements.md`
 
-**Output:** A reviewed `customer_requirements.md` file ready for proposal drafting
+**Output:** A reviewed `output/intake/[STEM]_requirements.md` file ready for proposal drafting
 
 ---
 
@@ -62,7 +62,7 @@ This document describes the end-to-end lifecycle of a technical solution proposa
 **Command:** `/proposal-create` or `/create-package`
 
 **What happens:**
-1. Claude reads `customer_requirements.md` first
+1. Claude reads `output/intake/[STEM]_requirements.md` first
 2. Claude asks structured follow-up questions using the `capture-customer-context` prompt if the intake file is incomplete
 3. User provides or confirms: client name, industry, pain points, solution scope, budget range, timeline, stakeholders
 4. Claude begins drafting once the intake is complete
