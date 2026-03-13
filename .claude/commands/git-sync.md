@@ -36,4 +36,4 @@ git remote add origin <repo-url>
 
 Then push:
 
-git push -u origin main
+git push -u origin master
