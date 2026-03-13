@@ -221,4 +221,4 @@ Standard boilerplate lives in `assets/static/`. Update these files to match your
 - Always run `/validate-proposal` before sending a draft to a client
 - Use `/improve-draft` iteratively — one section at a time gives better results than asking for a full rewrite
 - Keep the context window clean: start a new Claude session for each new proposal
-- Commit only the scaffold files to Git — never commit completed proposals unless required by policy
+- If GitHub Pages is being used as the internal proposal dashboard, commit the relevant `output/` files that should appear on the site

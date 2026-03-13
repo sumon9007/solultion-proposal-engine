@@ -95,6 +95,7 @@ The published site will expose the current contents of:
 - `output/packages/`
 
 This design is suitable for an internal operations view. If the repository is public, treat this as potentially sensitive.
+Because GitHub Actions builds the site from repository contents, the relevant `output/` files must be committed to Git for them to appear on Pages.
 
 ## Environment
 

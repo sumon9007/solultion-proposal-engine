@@ -16,14 +16,7 @@ build/
 venv/
 env/
 
-# Output — track folder structure but not generated content
-output/intake/**/*.md
-output/drafts/**/*.md
-output/approved/**/*.md
-output/exports/**/*.html
-output/exports/**/*.pdf
-output/packages/**/*.json
-!output/**/.gitkeep
+# Output — tracked in Git for internal Pages publishing
 
 # Input — track structure and register, not raw customer files or working extracts
 input/raw/**/*
