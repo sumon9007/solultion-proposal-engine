@@ -9,6 +9,7 @@ import shutil
 from datetime import UTC, datetime
 from html import escape
 from pathlib import Path
+import re
 
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent
@@ -50,6 +51,239 @@ def copy_tree(section_name: str) -> list[Path]:
     return files
 
 
+def markdown_to_html(md_content: str) -> str:
+    try:
+        import markdown
+
+        return markdown.markdown(
+            md_content,
+            extensions=["tables", "fenced_code", "nl2br", "toc"],
+        )
+    except ImportError:
+        return basic_markdown_to_html(md_content)
+
+
+def basic_markdown_to_html(md: str) -> str:
+    lines = md.splitlines()
+    html_lines: list[str] = []
+    in_list = False
+    in_table = False
+
+    for line in lines:
+        heading = re.match(r"^(#{1,4})\s+(.+)", line)
+        if heading:
+            if in_list:
+                html_lines.append("</ul>")
+                in_list = False
+            level = len(heading.group(1))
+            html_lines.append(f"<h{level}>{inline_markdown(heading.group(2))}</h{level}>")
+            continue
+
+        if line.startswith("|"):
+            if not in_table:
+                html_lines.append("<table><tbody>")
+                in_table = True
+            cells = [c.strip() for c in line.strip("|").split("|")]
+            if re.match(r"^[-:]+$", cells[0].replace(" ", "")):
+                continue
+            row = "".join(f"<td>{inline_markdown(cell)}</td>" for cell in cells)
+            html_lines.append(f"<tr>{row}</tr>")
+            continue
+        elif in_table:
+            html_lines.append("</tbody></table>")
+            in_table = False
+
+        bullet = re.match(r"^\s*[-*]\s+(.+)", line)
+        if bullet:
+            if not in_list:
+                html_lines.append("<ul>")
+                in_list = True
+            html_lines.append(f"<li>{inline_markdown(bullet.group(1))}</li>")
+            continue
+
+        numbered = re.match(r"^\s*\d+\.\s+(.+)", line)
+        if numbered:
+            if not in_list:
+                html_lines.append("<ul>")
+                in_list = True
+            html_lines.append(f"<li>{inline_markdown(numbered.group(1))}</li>")
+            continue
+
+        if in_list and not line.strip():
+            html_lines.append("</ul>")
+            in_list = False
+
+        if not line.strip():
+            html_lines.append("<br>")
+            continue
+
+        html_lines.append(f"<p>{inline_markdown(line)}</p>")
+
+    if in_list:
+        html_lines.append("</ul>")
+    if in_table:
+        html_lines.append("</tbody></table>")
+
+    return "\n".join(html_lines)
+
+
+def inline_markdown(text: str) -> str:
+    text = escape(text)
+    text = re.sub(r"\*\*(.+?)\*\*", r"<strong>\1</strong>", text)
+    text = re.sub(r"__(.+?)__", r"<strong>\1</strong>", text)
+    text = re.sub(r"\*(.+?)\*", r"<em>\1</em>", text)
+    text = re.sub(r"_(.+?)_", r"<em>\1</em>", text)
+    text = re.sub(r"`(.+?)`", r"<code>\1</code>", text)
+    text = re.sub(r"\[(.+?)\]\((.+?)\)", r'<a href="\2">\1</a>', text)
+    return text
+
+
+def render_markdown_page(path: Path, client: str, solution_type: str, label: str) -> Path:
+    html_path = path.with_suffix(".html")
+    html_body = markdown_to_html(path.read_text(encoding="utf-8"))
+    depth = len(html_path.relative_to(PUBLISH_DIR).parts) - 1
+    back_href = "../" * depth + "index.html"
+    page = f"""<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{escape(label)}</title>
+  <style>
+    :root {{
+      --bg: #eef3f8;
+      --panel: #ffffff;
+      --ink: #162233;
+      --muted: #64748b;
+      --line: #d7e0ea;
+      --navy: #10233f;
+      --blue: #0b5fff;
+      --teal: #10917d;
+    }}
+    * {{ box-sizing: border-box; }}
+    body {{
+      margin: 0;
+      font-family: Aptos, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f7fbff 0%, var(--bg) 100%);
+    }}
+    .shell {{
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }}
+    .topbar {{
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+    }}
+    .back {{
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 700;
+    }}
+    .meta {{
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: right;
+    }}
+    .hero {{
+      padding: 26px 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(16, 35, 63, 0.97), rgba(11, 95, 255, 0.92));
+      color: white;
+      box-shadow: 0 18px 48px rgba(16, 35, 63, 0.12);
+      margin-bottom: 22px;
+    }}
+    .hero p {{
+      margin: 0;
+      color: rgba(255, 255, 255, 0.76);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.76rem;
+    }}
+    .hero h1 {{
+      margin: 12px 0 0;
+      font-size: 2.3rem;
+      line-height: 1;
+    }}
+    .doc {{
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: 0 18px 42px rgba(16, 35, 63, 0.08);
+    }}
+    .doc h1, .doc h2, .doc h3, .doc h4 {{
+      color: var(--navy);
+      line-height: 1.15;
+    }}
+    .doc h2 {{
+      margin-top: 34px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }}
+    .doc p, .doc li {{
+      line-height: 1.7;
+    }}
+    .doc table {{
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      border: 1px solid var(--line);
+    }}
+    .doc th, .doc td {{
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }}
+    .doc th {{
+      background: #eef4fb;
+    }}
+    .doc code {{
+      background: #f4f7fb;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 1px 5px;
+    }}
+    .doc blockquote {{
+      margin: 18px 0;
+      padding: 12px 16px;
+      border-left: 4px solid var(--teal);
+      background: #eff9f7;
+    }}
+    @media (max-width: 700px) {{
+      .topbar {{ display: block; }}
+      .meta {{ margin-top: 10px; text-align: left; }}
+      .hero, .doc {{ padding: 20px; }}
+      .hero h1 {{ font-size: 1.9rem; }}
+    }}
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar">
+      <a class="back" href="{back_href}">Back to dashboard</a>
+      <div class="meta">{escape(client)} | {escape(solution_type)}</div>
+    </div>
+    <section class="hero">
+      <p>Internal document view</p>
+      <h1>{escape(label)}</h1>
+    </section>
+    <article class="doc">
+      {html_body}
+    </article>
+  </main>
+</body>
+</html>
+"""
+    html_path.write_text(page, encoding="utf-8")
+    return html_path
+
+
 def extract_label(path: Path) -> str:
     name = path.stem
     for suffix in ("_approved", "_draft", "_proposal", "_requirements"):
@@ -68,11 +302,14 @@ def extract_meta(path: Path) -> tuple[str, str]:
 
 
 def card_html(base: Path, path: Path) -> str:
-    rel_path = path.relative_to(base).as_posix()
     client, solution_type = extract_meta(path)
     label = escape(extract_label(path))
     modified = datetime.fromtimestamp(path.stat().st_mtime, UTC).strftime("%Y-%m-%d")
     ext = path.suffix.replace(".", "").upper() or "FILE"
+    target_path = path
+    if path.suffix.lower() == ".md":
+        target_path = render_markdown_page(path, client, solution_type, extract_label(path))
+    rel_path = target_path.relative_to(base).as_posix()
     return (
         "<article class=\"artifact-card\">"
         f"<p class=\"artifact-kicker\">{escape(solution_type)} · {escape(ext)}</p>"

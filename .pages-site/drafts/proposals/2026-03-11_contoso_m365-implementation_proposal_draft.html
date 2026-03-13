@@ -1,0 +1,514 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>2026-03-11 contoso m365-implementation</title>
+  <style>
+    :root {
+      --bg: #eef3f8;
+      --panel: #ffffff;
+      --ink: #162233;
+      --muted: #64748b;
+      --line: #d7e0ea;
+      --navy: #10233f;
+      --blue: #0b5fff;
+      --teal: #10917d;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: Aptos, "Segoe UI", sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #f7fbff 0%, var(--bg) 100%);
+    }
+    .shell {
+      max-width: 960px;
+      margin: 0 auto;
+      padding: 28px 20px 64px;
+    }
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 18px;
+    }
+    .back {
+      color: var(--blue);
+      text-decoration: none;
+      font-weight: 700;
+    }
+    .meta {
+      color: var(--muted);
+      font-size: 0.92rem;
+      text-align: right;
+    }
+    .hero {
+      padding: 26px 28px;
+      border-radius: 24px;
+      background: linear-gradient(135deg, rgba(16, 35, 63, 0.97), rgba(11, 95, 255, 0.92));
+      color: white;
+      box-shadow: 0 18px 48px rgba(16, 35, 63, 0.12);
+      margin-bottom: 22px;
+    }
+    .hero p {
+      margin: 0;
+      color: rgba(255, 255, 255, 0.76);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.76rem;
+    }
+    .hero h1 {
+      margin: 12px 0 0;
+      font-size: 2.3rem;
+      line-height: 1;
+    }
+    .doc {
+      padding: 28px;
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      background: var(--panel);
+      box-shadow: 0 18px 42px rgba(16, 35, 63, 0.08);
+    }
+    .doc h1, .doc h2, .doc h3, .doc h4 {
+      color: var(--navy);
+      line-height: 1.15;
+    }
+    .doc h2 {
+      margin-top: 34px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .doc p, .doc li {
+      line-height: 1.7;
+    }
+    .doc table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 18px 0;
+      border: 1px solid var(--line);
+    }
+    .doc th, .doc td {
+      border: 1px solid var(--line);
+      padding: 10px 12px;
+      text-align: left;
+      vertical-align: top;
+    }
+    .doc th {
+      background: #eef4fb;
+    }
+    .doc code {
+      background: #f4f7fb;
+      border: 1px solid var(--line);
+      border-radius: 6px;
+      padding: 1px 5px;
+    }
+    .doc blockquote {
+      margin: 18px 0;
+      padding: 12px 16px;
+      border-left: 4px solid var(--teal);
+      background: #eff9f7;
+    }
+    @media (max-width: 700px) {
+      .topbar { display: block; }
+      .meta { margin-top: 10px; text-align: left; }
+      .hero, .doc { padding: 20px; }
+      .hero h1 { font-size: 1.9rem; }
+    }
+  </style>
+</head>
+<body>
+  <main class="shell">
+    <div class="topbar">
+      <a class="back" href="../../index.html">Back to dashboard</a>
+      <div class="meta">Contoso | M365 Implementation</div>
+    </div>
+    <section class="hero">
+      <p>Internal document view</p>
+      <h1>2026-03-11 contoso m365-implementation</h1>
+    </section>
+    <article class="doc">
+      <h1>Microsoft Intune Endpoint Management</h1>
+<h2>Implementation and Managed Support Proposal</h2>
+<br>
+<p>---</p>
+<br>
+<p><strong>Prepared for:</strong> Contoso Ltd</p>
+<p><strong>Prepared by:</strong> Sigma Technologies Ltd</p>
+<p><strong>Document Reference:</strong> PROP-2026-03-11-CONTOSO</p>
+<p><strong>Date:</strong> 11 March 2026</p>
+<p><strong>Version:</strong> 1.0</p>
+<p><strong>Valid for:</strong> 30 days from date of issue</p>
+<br>
+<p>---</p>
+<br>
+<h2>Executive Summary</h2>
+<br>
+<p>Contoso Ltd currently operates 40 corporate devices — Windows laptops and mobile devices — managed through basic Group Policy with no mobile device management capability. This leaves corporate data accessible on unmanaged devices, produces inconsistent security policy enforcement across the fleet, and requires manual effort from the IT team to track and maintain compliance.</p>
+<br>
+<p>We will deploy <strong>Microsoft Intune</strong> as Contoso&#x27;s unified endpoint management platform, enrolling all 40 devices within a 2–3 week engagement. Intune will enforce security baselines, control application delivery, and provide real-time compliance visibility across every corporate device. Following implementation, our team will provide ongoing managed endpoint support, ensuring Contoso&#x27;s device estate remains secure, compliant, and current without requiring dedicated in-house resource.</p>
+<br>
+<p>The outcome: all 40 corporate devices enrolled and compliant within 30 days, consistent security policies enforced from day one, and a managed service model that scales as Contoso grows.</p>
+<br>
+<p>---</p>
+<br>
+<h2>Understanding of Requirements</h2>
+<br>
+<p>Contoso Ltd operates within the professional services sector and maintains a fleet of 40 corporate devices, comprising Windows laptops and a number of iOS and Android mobile devices used by staff across its UK office.</p>
+<br>
+<p>The current management approach relies on Windows Group Policy for laptop configuration, with no equivalent capability for mobile devices. This creates three specific problems:</p>
+<br>
+<p><strong>Unmanaged mobile devices.</strong> Corporate email, documents, and business applications are accessible on mobile devices that have no enforced security policies, no remote wipe capability, and no visibility from the IT team. If a device is lost or a staff member leaves the organisation, sensitive data may remain accessible.</p>
+<br>
+<p><strong>Inconsistent policy enforcement.</strong> Group Policy provides basic control over Windows devices but cannot enforce modern security baselines such as BitLocker encryption status, Windows Defender configuration, or compliance with minimum OS versions. Devices that fall out of policy are not automatically detected.</p>
+<br>
+<p><strong>Manual compliance overhead.</strong> Without a centralised management platform, the IT team has no consolidated view of device health, patch status, or policy compliance. Identifying and remediating non-compliant devices requires manual, time-consuming investigation.</p>
+<br>
+<p>Contoso requires a solution that places all 40 devices under a single management plane, enforces security policies consistently, provides remote wipe and selective wipe capabilities, and reduces the ongoing operational burden on the IT function. The organisation also requires ongoing managed support to maintain the solution post-implementation, as it does not have dedicated endpoint management resource in-house.</p>
+<br>
+<p>---</p>
+<br>
+<h2>Proposed Solution</h2>
+<br>
+<p>We will deploy <strong>Microsoft Intune</strong>, Microsoft&#x27;s cloud-native endpoint management platform, as Contoso&#x27;s unified management solution for all corporate devices. Intune is integrated with <strong>Microsoft Entra ID</strong> (formerly Azure Active Directory) to provide identity-driven access control, ensuring that only enrolled, compliant devices can access corporate resources.</p>
+<br>
+<h3>Platform Architecture</h3>
+<br>
+<p>The solution will be delivered as a fully cloud-managed deployment. No on-premises infrastructure is required. All devices communicate with Intune via the internet, enabling management of remote workers and devices in any location.</p>
+<br>
+<h3>Endpoint Management Capabilities Deployed</h3>
+<br>
+<table><tbody>
+<tr><td>Capability</td><td>Description</td></tr>
+<tr><td><strong>Device Enrolment</strong></td><td>All 40 Windows, iOS, and Android devices enrolled into Intune using appropriate enrolment methods (Windows Autopilot / Company Portal)</td></tr>
+<tr><td><strong>Compliance Policies</strong></td><td>Device compliance rules enforced: minimum OS version, encryption status, PIN/password requirements, screen lock timeout</td></tr>
+<tr><td><strong>Configuration Profiles</strong></td><td>Security baselines applied: BitLocker (Windows), device restrictions, Wi-Fi and VPN profiles where required</td></tr>
+<tr><td><strong>Conditional Access</strong></td><td>Entra ID Conditional Access policies ensure only enrolled, compliant devices access Microsoft 365 services including Exchange Online, SharePoint, and Teams</td></tr>
+<tr><td><strong>Application Management</strong></td><td>Required business applications deployed via Intune; Mobile Application Management (MAM) controls applied to protect corporate data within apps on mobile devices</td></tr>
+<tr><td><strong>Remote Actions</strong></td><td>IT team gains remote wipe, selective wipe, and device lock capability across the entire fleet</td></tr>
+<tr><td><strong>Compliance Dashboard</strong></td><td>Real-time view of device compliance status, policy application, and enrolled device inventory</td></tr>
+</tbody></table>
+<br>
+<h3>Ongoing Managed Support</h3>
+<br>
+<p>Following implementation, we will provide ongoing managed endpoint support under our <strong>Professional</strong> managed service tier. This covers:</p>
+<br>
+<ul>
+<li>Proactive monitoring of device compliance status</li>
+<li>Management of Intune policy updates and configuration changes</li>
+<li>Monthly compliance reporting</li>
+<li>OS update and patch policy management</li>
+<li>Helpdesk support for Intune-related device issues (remote, business hours)</li>
+<li>Quarterly service review meetings</li>
+</ul>
+<br>
+<p>---</p>
+<br>
+<h2>Scope of Work</h2>
+<br>
+<h3>In-Scope</h3>
+<br>
+<p>The following activities are included in this engagement:</p>
+<br>
+<ul>
+<li><strong>Assessment and Design</strong> — Review of Contoso&#x27;s existing Microsoft 365 tenant, Entra ID configuration, and device inventory. Production of a solution design document confirming enrolment methods, compliance policies, and Conditional Access rules.</li>
+</ul>
+<br>
+<ul>
+<li><strong>Intune Tenant Configuration</strong> — Configuration of the Intune portal: enrolment settings, compliance policies, configuration profiles, and application assignments for Windows, iOS, and Android platforms.</li>
+</ul>
+<br>
+<ul>
+<li><strong>Conditional Access Policy Deployment</strong> — Configuration of Entra ID Conditional Access policies to restrict Microsoft 365 access to enrolled, compliant devices.</li>
+</ul>
+<br>
+<ul>
+<li><strong>Device Enrolment</strong> — Enrolment of all 40 corporate devices into Intune. Windows devices via Autopilot or manual enrolment with Company Portal; iOS and Android devices via Company Portal with an assisted self-service model.</li>
+</ul>
+<br>
+<ul>
+<li><strong>Application Deployment</strong> — Configuration and assignment of required applications (as specified by Contoso) through Intune. Mobile Application Management (MAM) policies applied to protect corporate data within mobile apps.</li>
+</ul>
+<br>
+<ul>
+<li><strong>Testing and Validation</strong> — Functional testing of compliance policies, Conditional Access enforcement, remote actions, and application delivery across all three device platforms before go-live.</li>
+</ul>
+<br>
+<ul>
+<li><strong>Handover and Documentation</strong> — Full configuration documentation, administrator guide, and a one-hour handover session with Contoso&#x27;s IT contact.</li>
+</ul>
+<br>
+<ul>
+<li><strong>Ongoing Managed Support</strong> — Post-implementation managed endpoint support under the Professional service tier, as described in the Proposed Solution section.</li>
+</ul>
+<br>
+<h3>Client Responsibilities</h3>
+<br>
+<p>The client will be responsible for the following throughout this engagement:</p>
+<br>
+<ul>
+<li>Appointing a named IT contact with administrative access to the Microsoft 365 tenant</li>
+<li>Providing administrator credentials for the Intune and Entra ID environments</li>
+<li>Confirming the list of required applications to be deployed via Intune</li>
+<li>Communicating the enrolment schedule to device users and coordinating device availability during the enrolment phase</li>
+<li>Completing any prerequisite licensing activities (Microsoft Intune Plan 1 or equivalent must be active before technical work begins)</li>
+<li>Participating in the sign-off and testing phase to confirm the solution meets requirements</li>
+</ul>
+<br>
+<h3>Change Control</h3>
+<br>
+<p>Any work not listed in the In-Scope section above is out of scope. Requests for additional work — including additional device types, additional applications, custom scripting, or additional Conditional Access policies — will be assessed and priced via a formal Change Request before any additional work commences.</p>
+<br>
+<h3>Engagement Model</h3>
+<br>
+<p>The implementation phase is priced as a fixed-scope, fixed-price engagement. The ongoing managed support is provided under a monthly recurring service contract with a minimum term of 12 months.</p>
+<br>
+<p>---</p>
+<br>
+<h2>Deliverables</h2>
+<br>
+<table><tbody>
+<tr><td>#</td><td>Deliverable</td><td>Format</td><td>Delivered</td></tr>
+<tr><td>1</td><td>Solution Design Document</td><td>PDF/Word</td><td>End of Phase 1 (Day 3)</td></tr>
+<tr><td>2</td><td>Configured Intune tenant (policies, profiles, applications)</td><td>Live environment</td><td>End of Phase 2 (Day 10)</td></tr>
+<tr><td>3</td><td>All 40 devices enrolled and compliant in Intune</td><td>Live environment</td><td>End of Phase 3 (Day 14)</td></tr>
+<tr><td>4</td><td>Conditional Access policy — compliant device enforcement</td><td>Live environment</td><td>End of Phase 2 (Day 10)</td></tr>
+<tr><td>5</td><td>Test sign-off report</td><td>PDF</td><td>End of Phase 3 (Day 14)</td></tr>
+<tr><td>6</td><td>Administrator guide — Intune operations</td><td>PDF</td><td>Handover (Day 15)</td></tr>
+<tr><td>7</td><td>Monthly compliance report</td><td>PDF/email</td><td>Monthly (post go-live)</td></tr>
+<tr><td>8</td><td>Quarterly service review meeting</td><td>Online meeting</td><td>Every 3 months</td></tr>
+</tbody></table>
+<br>
+<p>---</p>
+<br>
+<h2>Assumptions &amp; Dependencies</h2>
+<br>
+<p>The following assumptions have been made in preparing this proposal. If any assumption proves to be incorrect, the scope, timeline, or cost may be affected. Changes will be managed through our formal Change Request process.</p>
+<br>
+<ul>
+<li>It is assumed that the client will appoint a named Technical Lead for the duration of the engagement, with sufficient authority to approve configurations and make decisions within agreed timeframes.</li>
+</ul>
+<br>
+<ul>
+<li>It is assumed that the client will make relevant stakeholders and device users available for the enrolment phase as required by the project plan. Unavailability of users during enrolment may delay the timeline.</li>
+</ul>
+<br>
+<ul>
+<li>It is assumed that Contoso holds, or will obtain, Microsoft Intune Plan 1 licences (included in Microsoft 365 Business Premium, E3, or E5) for all 40 devices before technical work commences. Licence procurement is not included in this proposal.</li>
+</ul>
+<br>
+<ul>
+<li>It is assumed that Contoso&#x27;s Microsoft 365 tenant is in a healthy state with Entra ID functioning correctly. Any remediation of the existing tenant is not included in this scope.</li>
+</ul>
+<br>
+<ul>
+<li>It is assumed that the 40 devices in scope are running supported operating system versions: Windows 10 21H2 or later, iOS 16 or later, Android 10 or later. Devices running unsupported OS versions must be upgraded before enrolment; OS upgrade is not included in this scope.</li>
+</ul>
+<br>
+<ul>
+<li>It is assumed that administrator-level access to the Microsoft 365 tenant, Intune, and Entra ID will be provided to our team before technical work commences, and that this access will remain available for the duration of the implementation.</li>
+</ul>
+<br>
+<ul>
+<li>It is assumed that the client will provide timely responses to information requests, testing participation, and sign-off requests within 1 business day during the implementation phase. Delays in client response may affect the timeline.</li>
+</ul>
+<br>
+<ul>
+<li>It is assumed that the device count will not exceed 40 during the implementation phase. Additional devices beyond this number will be subject to a Change Request.</li>
+</ul>
+<br>
+<ul>
+<li>It is assumed that all 40 devices are corporate-owned devices. BYOD (personal device) enrolment is not included in this scope. Mobile Application Management (MAM) without device enrolment can be scoped separately if required for personal devices.</li>
+</ul>
+<br>
+<ul>
+<li>It is assumed that the client has suitable internet connectivity to support cloud-based device management. Intune requires HTTPS outbound connectivity to Microsoft endpoints from managed devices.</li>
+</ul>
+<br>
+<ul>
+<li>It is assumed that any required third-party systems (VPN, Wi-Fi) whose profiles need deploying via Intune will be documented and accessible to the project team during the design phase.</li>
+</ul>
+<br>
+<p>---</p>
+<br>
+<h2>Exclusions</h2>
+<br>
+<p>The following items are explicitly excluded from this proposal:</p>
+<br>
+<ul>
+<li>Microsoft Intune licence procurement. Licences must be in place before work commences.</li>
+<li>End-user training or change management communications beyond the administrator handover session.</li>
+<li>OS upgrades for devices not meeting the minimum version requirements.</li>
+<li>Custom application packaging, scripting, or Win32 app wrapping beyond standard MSI/MSIX deployment.</li>
+<li>BYOD (personal device) enrolment without full device management (MAM-only for personal devices is a separate scope item).</li>
+<li>Microsoft Defender for Endpoint integration or configuration, unless separately scoped.</li>
+<li>Third-party MDM migration or decommissioning.</li>
+<li>Hardware procurement, device refresh, or physical device setup.</li>
+<li>Identity remediation in Entra ID (e.g., hybrid identity configuration, AD Connect issues).</li>
+<li>Penetration testing or formal security assessments.</li>
+<li>Any work required to bring Contoso&#x27;s Microsoft 365 tenant into a baseline-compliant state before implementation begins.</li>
+<li>Network infrastructure changes, firewall rule modifications, or proxy configuration beyond standard Intune URL allowlisting guidance.</li>
+</ul>
+<br>
+<p>---</p>
+<br>
+<h2>Indicative Pricing</h2>
+<br>
+<p>&gt; <strong>INDICATIVE PRICING — Subject to commercial review and sign-off before issue to client.</strong></p>
+<br>
+<table><tbody>
+<tr><td>Item</td><td>Description</td><td>Unit</td><td>Qty</td><td>Rate</td><td>Total</td></tr>
+<tr><td>Intune Implementation</td><td>Assessment, design, configuration, enrolment (40 devices), testing, handover</td><td>Fixed price</td><td>1</td><td>£8,500</td><td>£8,500</td></tr>
+<tr><td>Ongoing Managed Support</td><td>Professional tier managed endpoint support — Intune monitoring, patch management, helpdesk, monthly reporting</td><td>Per month</td><td>12</td><td>£650</td><td>£7,800</td></tr>
+<tr><td><strong>Total Investment (Year 1)</strong></td><td></td><td></td><td></td><td></td><td><strong>£16,300</strong></td></tr>
+</tbody></table>
+<br>
+<p><strong>Notes:</strong></p>
+<ul>
+<li>All prices are exclusive of VAT, charged at the prevailing rate.</li>
+<li>Implementation is fixed-price. The managed support is a monthly recurring charge with a minimum 12-month term.</li>
+<li>Payment terms: 50% of implementation fee on engagement commencement, 50% on go-live sign-off. Managed support invoiced monthly in advance.</li>
+<li>Renewal of managed support after the initial 12-month term is subject to a separate renewal agreement.</li>
+</ul>
+<br>
+<p>---</p>
+<br>
+<h2>Timeline</h2>
+<br>
+<h3>Implementation — 2 to 3 Weeks</h3>
+<br>
+<table><tbody>
+<tr><td>Phase</td><td>Activities</td><td>Duration</td><td>Owner</td></tr>
+<tr><td><strong>Phase 1 — Assessment &amp; Design</strong></td><td>Tenant review, device inventory confirmation, solution design document, sign-off</td><td>Days 1–3</td><td>Joint</td></tr>
+<tr><td><strong>Phase 2 — Configuration</strong></td><td>Intune tenant configuration, compliance policies, configuration profiles, Conditional Access, app assignments</td><td>Days 4–10</td><td>Our team</td></tr>
+<tr><td><strong>Phase 3 — Enrolment &amp; Testing</strong></td><td>Device enrolment (all 40 devices), functional testing, UAT sign-off</td><td>Days 11–14</td><td>Joint</td></tr>
+<tr><td><strong>Phase 4 — Handover</strong></td><td>Documentation delivery, administrator handover session, go-live confirmation</td><td>Day 15</td><td>Our team</td></tr>
+</tbody></table>
+<br>
+<h3>Key Milestones</h3>
+<br>
+<table><tbody>
+<tr><td>Milestone</td><td>Target</td><td>Owner</td></tr>
+<tr><td>Project kick-off meeting</td><td>Day 1</td><td>Joint</td></tr>
+<tr><td>Solution design sign-off</td><td>Day 3</td><td>Client</td></tr>
+<tr><td>Intune configuration complete</td><td>Day 10</td><td>Our team</td></tr>
+<tr><td>All 40 devices enrolled</td><td>Day 14</td><td>Joint</td></tr>
+<tr><td>Go-live and handover</td><td>Day 15</td><td>Our team</td></tr>
+<tr><td>Managed support commencement</td><td>Day 16</td><td>Our team</td></tr>
+</tbody></table>
+<br>
+<h3>Timing Assumptions</h3>
+<br>
+<p>This timeline assumes a confirmed start date and uninterrupted access to the Contoso Microsoft 365 tenant. Device user availability for enrolment during Phase 3 must be coordinated by the client. Any delays in tenant access, design sign-off, or device availability will extend the timeline accordingly.</p>
+<br>
+<p>---</p>
+<br>
+<h2>About Us</h2>
+<br>
+<p><strong>Sigma Technologies Ltd</strong> is a specialist technology consultancy and managed services provider, delivering cloud transformation, Microsoft 365 solutions, and IT managed services to enterprise and mid-market organisations across the UK and internationally.</p>
+<br>
+<p>Our team of certified consultants and engineers brings deep expertise across Microsoft Azure, Microsoft 365, endpoint management, network infrastructure, and cybersecurity.</p>
+<br>
+<h3>Our Capabilities</h3>
+<br>
+<table><tbody>
+<tr><td>Practice Area</td><td>Key Technologies</td></tr>
+<tr><td>Cloud &amp; Infrastructure</td><td>Microsoft Azure, Hybrid Cloud, IaaS, PaaS</td></tr>
+<tr><td>Modern Workplace</td><td>Microsoft 365, Teams, SharePoint, Intune</td></tr>
+<tr><td>Cybersecurity</td><td>Microsoft Sentinel, Defender, Zero Trust, MFA</td></tr>
+<tr><td>Managed Services</td><td>24x7 monitoring, helpdesk, proactive support</td></tr>
+<tr><td>Consultancy</td><td>Strategy, architecture, programme delivery</td></tr>
+</tbody></table>
+<br>
+<h3>Microsoft Partner Credentials</h3>
+<br>
+<p>As a Microsoft Solutions Partner, we maintain accreditation across the Modern Work and Security solution areas, with direct access to Microsoft engineering and support resources. Our engineers hold Microsoft 365 Endpoint Administrator certifications specific to the Intune platform.</p>
+<br>
+<h3>Our Certifications</h3>
+<br>
+<ul>
+<li>Microsoft 365 Enterprise Administrator Expert</li>
+<li>Microsoft Endpoint Administrator (MD-102)</li>
+<li>Microsoft Azure Solutions Architect Expert</li>
+<li>ITIL v4 Foundation</li>
+<li>PRINCE2 Practitioner</li>
+</ul>
+<br>
+<p>---</p>
+<br>
+<h2>Next Steps</h2>
+<br>
+<p>To progress this proposal, we propose the following steps:</p>
+<br>
+<h3>1. Proposal Review Meeting</h3>
+<br>
+<p>We welcome the opportunity to present this proposal and answer any questions. Please contact us to arrange a 60-minute call at a time that suits you.</p>
+<br>
+<h3>2. Clarifications and Amendments</h3>
+<br>
+<p>If any aspect of this proposal requires adjustment — scope, phasing, or commercial terms — please raise this with your named contact. We are happy to revise before contract.</p>
+<br>
+<h3>3. Formal Acceptance</h3>
+<br>
+<p>To formally accept, please sign and return the accompanying Statement of Work, or confirm acceptance in writing by email. We will issue a formal commencement confirmation and confirm your start date.</p>
+<br>
+<h3>4. Kickoff</h3>
+<br>
+<p>Once the agreement is signed, we will schedule a project kick-off meeting within 5 business days. At this meeting we will:</p>
+<br>
+<ul>
+<li>Introduce the project team</li>
+<li>Confirm roles and responsibilities on both sides</li>
+<li>Agree the detailed enrolment schedule</li>
+<li>Confirm tenant access requirements and prerequisites</li>
+<li>Establish communication and escalation channels</li>
+</ul>
+<br>
+<h3>5. Mobilisation</h3>
+<br>
+<p>Following kick-off, technical work commences immediately according to the agreed plan.</p>
+<br>
+<p>---</p>
+<br>
+<p>We look forward to supporting Contoso Ltd&#x27;s endpoint management programme. Please do not hesitate to contact us with any questions about this proposal.</p>
+<br>
+<p>---</p>
+<br>
+<h2>Legal Notes</h2>
+<br>
+<h3>Validity</h3>
+<br>
+<p>This proposal is valid for 30 days from the date of issue. After this period, pricing, availability, and scope are subject to review and may change without notice.</p>
+<br>
+<h3>Confidentiality</h3>
+<br>
+<p>This document contains commercially sensitive information and is provided in confidence to Contoso Ltd only. It must not be reproduced, distributed, or disclosed to any third party without the prior written consent of Sigma Technologies Ltd.</p>
+<br>
+<h3>Intellectual Property</h3>
+<br>
+<p>All intellectual property created specifically for Contoso Ltd during this engagement will vest in the client upon receipt of full payment. Pre-existing intellectual property, methodologies, tools, templates, and frameworks belonging to Sigma Technologies Ltd remain our property and are licensed to the client for use within the scope of this engagement only.</p>
+<br>
+<h3>Liability</h3>
+<br>
+<p>Sigma Technologies Ltd&#x27;s total aggregate liability to Contoso Ltd under or in connection with this engagement shall not exceed the total fees paid by the client in the 12 months preceding the event giving rise to the claim. In no event shall Sigma Technologies Ltd be liable for any indirect, special, incidental, or consequential loss or damage, including loss of profit, loss of revenue, or loss of data.</p>
+<br>
+<h3>Payment Terms</h3>
+<br>
+<p>All invoices are due within 30 days of the invoice date. Late payment may attract interest in accordance with the Late Payment of Commercial Debts (Interest) Act 1998. All prices in this proposal are exclusive of VAT, which will be charged at the prevailing rate.</p>
+<br>
+<h3>Governing Law</h3>
+<br>
+<p>This proposal and any resulting contract shall be governed by and construed in accordance with the laws of England and Wales. Any dispute shall be subject to the exclusive jurisdiction of the courts of England and Wales.</p>
+<br>
+<h3>Acceptance</h3>
+<br>
+<p>This proposal does not constitute a contract. A binding agreement will only come into effect upon execution of a formal Statement of Work or Master Services Agreement signed by authorised representatives of both parties.</p>
+<br>
+<p>---</p>
+<br>
+<p><em>Sigma Technologies Ltd is a company registered in England and Wales. Company Registration Number: 12345678. Registered office: 100 Technology Square, London, EC1A 1BB.</em></p>
+    </article>
+  </main>
+</body>
+</html>
