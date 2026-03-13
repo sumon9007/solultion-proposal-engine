@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Technical Solution Proposal — {{CLIENT_NAME}}">
+  <meta name="author" content="{{COMPANY_NAME}}">
+  <title>{{TITLE}} — {{CLIENT_NAME}}</title>
+  <style>
+    {{CSS}}
+  </style>
+</head>
+<body>
+
+  <!-- ─── Header ──────────────────────────────────────────────────── -->
+  <header class="doc-header">
+    <div class="header-inner">
+      <div class="company-name">{{COMPANY_NAME}}</div>
+      <div class="doc-meta">
+        <span>Prepared for: <strong>{{CLIENT_NAME}}</strong></span>
+        <span class="separator">|</span>
+        <span>{{EXPORT_DATE}}</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- ─── Main Content ─────────────────────────────────────────────── -->
+  <main class="proposal-content">
+    {{PROPOSAL_CONTENT}}
+  </main>
+
+  <!-- ─── Footer ──────────────────────────────────────────────────── -->
+  <footer class="doc-footer">
+    <div class="footer-inner">
+      <div class="footer-company">{{COMPANY_NAME}}</div>
+      <div class="footer-contact">
+        {{COMPANY_EMAIL}}
+        <span class="separator">|</span>
+        {{COMPANY_PHONE}}
+        <span class="separator">|</span>
+        {{COMPANY_WEBSITE}}
+      </div>
+      <div class="footer-page">
+        <span class="confidential">CONFIDENTIAL</span>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

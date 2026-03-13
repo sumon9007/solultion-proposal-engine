@@ -1,0 +1,359 @@
+/* ═══════════════════════════════════════════════════════════════
+   Solution Proposal Engine — Proposal Stylesheet
+   ═══════════════════════════════════════════════════════════════ */
+
+/* ─── Reset & Base ─────────────────────────────────────────────── */
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  --brand-primary:   #1a3a5c;
+  --brand-secondary: #2c5282;
+  --brand-accent:    #3182ce;
+  --text-primary:    #1a202c;
+  --text-secondary:  #4a5568;
+  --text-muted:      #718096;
+  --border:          #e2e8f0;
+  --bg-light:        #f7fafc;
+  --bg-table-head:   #edf2f7;
+  --page-max-width:  900px;
+  --font-body:       'Georgia', 'Times New Roman', serif;
+  --font-heading:    'Arial', 'Helvetica Neue', sans-serif;
+  --font-mono:       'Courier New', monospace;
+  --font-size-base:  11pt;
+  --line-height:     1.7;
+}
+
+html {
+  font-size: var(--font-size-base);
+  color: var(--text-primary);
+}
+
+body {
+  font-family: var(--font-body);
+  line-height: var(--line-height);
+  background: #fff;
+}
+
+/* ─── Layout ────────────────────────────────────────────────────── */
+
+.doc-header,
+.doc-footer,
+.proposal-content {
+  max-width: var(--page-max-width);
+  margin: 0 auto;
+  padding: 0 48px;
+}
+
+/* ─── Header ────────────────────────────────────────────────────── */
+
+.doc-header {
+  border-bottom: 3px solid var(--brand-primary);
+  padding-top: 24px;
+  padding-bottom: 16px;
+  margin-bottom: 40px;
+}
+
+.header-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.company-name {
+  font-family: var(--font-heading);
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  letter-spacing: 0.5px;
+}
+
+.doc-meta {
+  font-family: var(--font-heading);
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
+
+.separator {
+  margin: 0 8px;
+  color: var(--border);
+}
+
+/* ─── Main Content ───────────────────────────────────────────────── */
+
+.proposal-content {
+  padding-bottom: 60px;
+}
+
+/* ─── Headings ──────────────────────────────────────────────────── */
+
+h1 {
+  font-family: var(--font-heading);
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  line-height: 1.2;
+  margin-bottom: 8px;
+}
+
+h1 + h2 {
+  font-size: 1rem;
+  font-weight: 400;
+  color: var(--text-secondary);
+  border: none;
+  margin-top: 4px;
+  margin-bottom: 32px;
+  padding-bottom: 0;
+}
+
+h2 {
+  font-family: var(--font-heading);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--brand-primary);
+  border-bottom: 2px solid var(--border);
+  padding-bottom: 6px;
+  margin-top: 48px;
+  margin-bottom: 20px;
+  page-break-after: avoid;
+}
+
+h3 {
+  font-family: var(--font-heading);
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--brand-secondary);
+  margin-top: 28px;
+  margin-bottom: 12px;
+  page-break-after: avoid;
+}
+
+h4 {
+  font-family: var(--font-heading);
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-top: 20px;
+  margin-bottom: 8px;
+}
+
+/* ─── Cover Page Metadata Block ─────────────────────────────────── */
+
+/* The strong elements immediately after h1 (cover page fields) */
+h1 ~ p > strong:first-child {
+  color: var(--text-secondary);
+  display: inline-block;
+  width: 200px;
+}
+
+/* ─── Paragraphs & Text ──────────────────────────────────────────── */
+
+p {
+  margin-bottom: 1rem;
+  color: var(--text-primary);
+}
+
+strong {
+  font-weight: 700;
+}
+
+em {
+  font-style: italic;
+  color: var(--text-secondary);
+}
+
+code {
+  font-family: var(--font-mono);
+  font-size: 0.88em;
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 1px 5px;
+}
+
+pre {
+  background: var(--bg-light);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 16px;
+  overflow-x: auto;
+  margin-bottom: 1.5rem;
+}
+
+pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.85em;
+}
+
+/* ─── Lists ─────────────────────────────────────────────────────── */
+
+ul, ol {
+  margin: 0.5rem 0 1rem 1.5rem;
+  color: var(--text-primary);
+}
+
+li {
+  margin-bottom: 0.4rem;
+}
+
+li > ul, li > ol {
+  margin-top: 0.3rem;
+  margin-bottom: 0.3rem;
+}
+
+/* ─── Tables ────────────────────────────────────────────────────── */
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1.2rem 0 1.8rem;
+  font-family: var(--font-heading);
+  font-size: 0.9rem;
+  page-break-inside: avoid;
+}
+
+thead {
+  background: var(--bg-table-head);
+}
+
+th {
+  text-align: left;
+  font-weight: 700;
+  color: var(--brand-primary);
+  padding: 10px 14px;
+  border: 1px solid var(--border);
+  white-space: nowrap;
+}
+
+td {
+  padding: 9px 14px;
+  border: 1px solid var(--border);
+  vertical-align: top;
+  color: var(--text-primary);
+}
+
+tr:nth-child(even) td {
+  background: var(--bg-light);
+}
+
+/* Total / summary rows */
+tr:last-child td strong,
+tfoot td {
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+
+/* ─── Horizontal Rule ────────────────────────────────────────────── */
+
+hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 40px 0;
+}
+
+/* ─── Blockquotes ────────────────────────────────────────────────── */
+
+blockquote {
+  border-left: 4px solid var(--brand-accent);
+  margin: 1.5rem 0;
+  padding: 12px 20px;
+  background: var(--bg-light);
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+/* ─── Footer ────────────────────────────────────────────────────── */
+
+.doc-footer {
+  border-top: 2px solid var(--brand-primary);
+  padding-top: 16px;
+  padding-bottom: 24px;
+  margin-top: 60px;
+}
+
+.footer-inner {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: var(--font-heading);
+  font-size: 0.8rem;
+  color: var(--text-muted);
+}
+
+.footer-company {
+  font-weight: 700;
+  color: var(--brand-primary);
+}
+
+.confidential {
+  font-size: 0.7rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  color: var(--text-muted);
+  border: 1px solid var(--border);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+/* ─── Print Styles ───────────────────────────────────────────────── */
+
+@media print {
+  :root {
+    --font-size-base: 10pt;
+  }
+
+  body {
+    background: white;
+  }
+
+  .doc-header,
+  .doc-footer,
+  .proposal-content {
+    max-width: 100%;
+    padding: 0 24px;
+  }
+
+  .doc-header {
+    position: running(header);
+    margin-bottom: 0;
+  }
+
+  .doc-footer {
+    position: running(footer);
+    margin-top: 0;
+  }
+
+  h1, h2, h3, h4 {
+    page-break-after: avoid;
+  }
+
+  table, figure {
+    page-break-inside: avoid;
+  }
+
+  @page {
+    margin: 20mm 20mm 25mm 20mm;
+    size: A4;
+
+    @top-center {
+      content: element(header);
+    }
+
+    @bottom-center {
+      content: element(footer);
+    }
+
+    @bottom-right {
+      content: "Page " counter(page) " of " counter(pages);
+      font-family: Arial, sans-serif;
+      font-size: 8pt;
+      color: #718096;
+    }
+  }
+}
