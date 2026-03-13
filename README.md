@@ -70,13 +70,14 @@ See `docs/requirement-capture-flow.md` for the intake process and `docs/workspac
 
 ## GitHub Pages
 
-This repository includes a GitHub Actions workflow that publishes the `output/` directory to GitHub Pages.
+This repository includes a GitHub Actions workflow that publishes an internal dashboard site derived from `output/`.
 
 How it works:
 
 1. On every push to `main` that changes `output/` or the Pages workflow, GitHub Actions runs `.github/workflows/publish-output-pages.yml`
-2. The workflow generates `output/index.html` so the published site has a browsable landing page
-3. The workflow deploys the full `output/` directory to GitHub Pages
+2. The workflow stages the relevant `output/` sections into a Pages build directory
+3. The workflow generates an internal proposal-operations landing page for that staged site
+4. The workflow deploys the staged site to GitHub Pages
 
 To enable it in GitHub:
 
@@ -92,6 +93,8 @@ The published site will expose the current contents of:
 - `output/approved/`
 - `output/exports/`
 - `output/packages/`
+
+This design is suitable for an internal operations view. If the repository is public, treat this as potentially sensitive.
 
 ## Environment
 

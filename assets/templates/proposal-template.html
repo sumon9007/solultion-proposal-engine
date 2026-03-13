@@ -11,40 +11,61 @@
   </style>
 </head>
 <body>
-
-  <!-- ─── Header ──────────────────────────────────────────────────── -->
-  <header class="doc-header">
-    <div class="header-inner">
-      <div class="company-name">{{COMPANY_NAME}}</div>
-      <div class="doc-meta">
-        <span>Prepared for: <strong>{{CLIENT_NAME}}</strong></span>
-        <span class="separator">|</span>
-        <span>{{EXPORT_DATE}}</span>
+  <div class="page-shell">
+    <section class="cover-band">
+      <div class="cover-grid">
+        <div class="cover-copy">
+          <p class="cover-kicker">Technical Solution Proposal</p>
+          <h1>{{TITLE}}</h1>
+          <p class="cover-client">Prepared for {{CLIENT_NAME}}</p>
+        </div>
+        <div class="cover-meta">
+          <div class="meta-card">
+            <span class="meta-label">Prepared by</span>
+            <strong>{{COMPANY_NAME}}</strong>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Issue date</span>
+            <strong>{{EXPORT_DATE}}</strong>
+          </div>
+          <div class="meta-card">
+            <span class="meta-label">Confidentiality</span>
+            <strong>Client Confidential</strong>
+          </div>
+        </div>
       </div>
-    </div>
-  </header>
+    </section>
 
-  <!-- ─── Main Content ─────────────────────────────────────────────── -->
-  <main class="proposal-content">
-    {{PROPOSAL_CONTENT}}
-  </main>
-
-  <!-- ─── Footer ──────────────────────────────────────────────────── -->
-  <footer class="doc-footer">
-    <div class="footer-inner">
-      <div class="footer-company">{{COMPANY_NAME}}</div>
-      <div class="footer-contact">
-        {{COMPANY_EMAIL}}
-        <span class="separator">|</span>
-        {{COMPANY_PHONE}}
-        <span class="separator">|</span>
-        {{COMPANY_WEBSITE}}
+    <header class="doc-header">
+      <div class="header-inner">
+        <div class="company-name">{{COMPANY_NAME}}</div>
+        <div class="doc-meta">
+          <span>Prepared for <strong>{{CLIENT_NAME}}</strong></span>
+          <span class="separator">|</span>
+          <span>{{EXPORT_DATE}}</span>
+        </div>
       </div>
-      <div class="footer-page">
-        <span class="confidential">CONFIDENTIAL</span>
-      </div>
-    </div>
-  </footer>
+    </header>
 
+    <main class="proposal-content">
+      {{PROPOSAL_CONTENT}}
+    </main>
+
+    <footer class="doc-footer">
+      <div class="footer-inner">
+        <div class="footer-company">{{COMPANY_NAME}}</div>
+        <div class="footer-contact">
+          {{COMPANY_EMAIL}}
+          <span class="separator">|</span>
+          {{COMPANY_PHONE}}
+          <span class="separator">|</span>
+          {{COMPANY_WEBSITE}}
+        </div>
+        <div class="footer-page">
+          <span class="confidential">CONFIDENTIAL</span>
+        </div>
+      </div>
+    </footer>
+  </div>
 </body>
 </html>
