@@ -309,6 +309,7 @@ def card_html(base: Path, path: Path) -> str:
     target_path = path
     if path.suffix.lower() == ".md":
         target_path = render_markdown_page(path, client, solution_type, extract_label(path))
+        path.unlink()
     rel_path = target_path.relative_to(base).as_posix()
     return (
         "<article class=\"artifact-card\">"
@@ -612,6 +613,8 @@ def main() -> None:
     reset_publish_dir()
     section_files = {name: copy_tree(name) for name, _, _ in PUBLISHED_SECTIONS}
     build_index(section_files)
+    for markdown_path in PUBLISH_DIR.rglob("*.md"):
+        markdown_path.unlink()
     (PUBLISH_DIR / ".nojekyll").write_text("", encoding="utf-8")
 
 
