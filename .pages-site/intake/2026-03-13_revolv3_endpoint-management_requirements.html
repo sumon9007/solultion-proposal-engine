@@ -129,64 +129,129 @@
       <h1>2026-03-13 revolv3 endpoint-management</h1>
     </section>
     <article class="doc">
-      <h1>Customer Requirements</h1>
+      <h1>Revolv3 Endpoint Management Requirements</h1>
 <br>
-<p>Use this file as the normalized intake document for each new engagement.</p>
+<h2>Document Summary</h2>
 <br>
-<p>Preferred process:</p>
+<p>This file is the normalized intake document for the Revolv3 endpoint management opportunity. It consolidates the customer requirement PDF into a proposal-ready internal brief.</p>
+<br>
+<table><tbody>
+<tr><td>Field</td><td>Value</td></tr>
+<tr><td>Client</td><td>Revolv3</td></tr>
+<tr><td>Opportunity</td><td>Endpoint Management &amp; Security Requirements</td></tr>
+<tr><td>Solution Type</td><td>Endpoint management implementation with ongoing managed support and security governance</td></tr>
+<tr><td>Industry</td><td>Financial technology / payment gateway</td></tr>
+<tr><td>Source Status</td><td>Normalized from customer-provided PDF</td></tr>
+<tr><td>Primary Contact</td><td>Revolv3 IT point of contact (name not yet provided)</td></tr>
+</tbody></table>
+<br>
+<h2>Executive Overview</h2>
+<br>
+<p>Revolv3 requires a vendor proposal for the deployment and ongoing management of a mixed Windows and macOS corporate laptop estate. The engagement must establish Microsoft Intune as the management platform, enforce a PCI DSS-aligned endpoint security baseline, and define a controlled third-party operating model for any MSP or consultant accessing the environment.</p>
+<br>
+<p>This is not a generic device rollout. The requirement is shaped by compliance obligations, strict access governance, and the need to operate safely within a payment-processing environment.</p>
+<br>
+<h2>Business Context</h2>
+<br>
+<h3>Current Challenge</h3>
+<br>
+<p>Revolv3 needs to bring its corporate endpoint estate under consistent control across approximately 40 laptops while maintaining security, minimizing user disruption, and meeting compliance obligations.</p>
+<br>
+<h3>Business Drivers</h3>
+<br>
 <ul>
-<li>Collect raw source material in <code>input/raw/</code></li>
-<li>Record the sources in <code>input/source-register.md</code></li>
-<li>Generate or update this file using <code>/requirements-build</code></li>
+<li>Standardize endpoint management across Windows and macOS</li>
+<li>Enforce security controls through Microsoft Intune and Entra ID</li>
+<li>Support zero-touch provisioning for new devices</li>
+<li>Reduce unmanaged-device and privilege-related risk</li>
+<li>Meet PCI DSS obligations for endpoint security and third-party access</li>
+</ul>
+<br>
+<h3>Risks of Inaction</h3>
+<br>
+<ul>
+<li>Continued inconsistency across managed and unmanaged devices</li>
+<li>Weak compliance posture in a PCI DSS-regulated environment</li>
+<li>Inability to enforce Conditional Access based on device compliance</li>
+<li>Insufficient auditability for third-party administrative access</li>
+<li>Higher operational risk from excessive privileges and uncontrolled support access</li>
+</ul>
+<br>
+<h3>Desired Outcomes</h3>
+<br>
+<ul>
+<li>Approximately 40 corporate laptops managed under a single operating model</li>
+<li>Zero-touch setup for new Windows and macOS devices</li>
+<li>Enforced controls for encryption, endpoint protection, firewall, patching, and screen lock</li>
+<li>Controlled, auditable support access for external providers</li>
+<li>Ongoing compliance visibility and monthly reporting</li>
 </ul>
 <br>
 <h2>Opportunity Snapshot</h2>
 <br>
+<h3>Stakeholders</h3>
+<br>
 <ul>
-<li>Client name: Revolv3</li>
-<li>Industry: Financial technology / payment gateway</li>
-<li>Primary contact: Revolv3 IT point of contact (name not yet provided)</li>
-<li>Other stakeholders: Revolv3 IT, security/compliance stakeholders, senior management, prospective MSP or consultant team</li>
-<li>Opportunity name: Endpoint Management &amp; Security Requirements</li>
-<li>Solution type: Endpoint management implementation with ongoing managed support and security governance</li>
+<li>Revolv3 IT</li>
+<li>Security and compliance stakeholders</li>
+<li>Senior management</li>
+<li>Prospective MSP or consultant team</li>
 </ul>
 <br>
-<h2>Business Context</h2>
+<h3>Why This Opportunity Matters</h3>
 <br>
 <ul>
-<li>Current challenge: Revolv3 needs a vendor proposal for deployment and ongoing management of its corporate endpoint environment across a mixed Windows and macOS laptop fleet, with strong security enforcement and operational controls.</li>
-<li>Business drivers: Standardize endpoint management, enforce security baselines through Microsoft Intune, support zero-touch provisioning, reduce unmanaged-device risk, and meet PCI DSS obligations for endpoint controls and third-party access.</li>
-<li>Risks of inaction: Continued endpoint inconsistency, weak compliance posture, inability to enforce Conditional Access based on device compliance, unmanaged privilege risks, poor auditability for third-party access, and exposure in a PCI DSS-regulated environment.</li>
-<li>Desired outcomes:</li>
-<li>Bring approximately 40 corporate laptops under consistent management</li>
-<li>Support zero-touch setup for new Windows and macOS devices</li>
-<li>Enforce encryption, endpoint protection, firewall, patching, screen lock, and compliance controls</li>
-<li>Enable controlled support access and auditable vendor operations</li>
-<li>Establish an operational model that supports ongoing compliance monitoring and monthly reporting</li>
+<li>Endpoint controls are treated as a direct PCI DSS requirement</li>
+<li>The engagement supports Revolv3&#x27;s annual compliance posture</li>
+<li>Revolv3 needs a model that allows external support without creating unacceptable audit or access risk</li>
 </ul>
 <br>
 <h2>Scope</h2>
 <br>
+<h3>In Scope</h3>
+<br>
 <ul>
-<li>In scope:</li>
 <li>Microsoft Intune-based endpoint management for approximately 40 corporate laptops</li>
 <li>Windows Autopilot for new Windows devices</li>
-<li>Apple Automated Device Enrollment via Apple Business Manager for new macOS devices</li>
-<li>Enrollment and remediation of existing laptops already in daily use</li>
+<li>Apple Automated Device Enrollment through Apple Business Manager for new macOS devices</li>
+<li>Enrollment and remediation of existing laptops already in active use</li>
 <li>Security baseline enforcement through Intune and Entra ID Conditional Access</li>
-<li>Application deployment and update management</li>
-<li>Privilege management for standard users, developers, and IT admin accounts</li>
+<li>Application deployment and application update management</li>
+<li>Privilege management for standard users, developers, and IT support accounts</li>
 <li>Compliance monitoring, monthly reporting, and vendor operating controls</li>
 <li>Third-party access model for any MSP or consultant with Intune access</li>
-<li>Out of scope:</li>
+</ul>
+<br>
+<h3>Out of Scope</h3>
+<br>
+<ul>
 <li>Mobile phones and tablets</li>
-<li>Any approach that relies on Microsoft 365 Business Standard without the required upgrade</li>
+<li>Any delivery model that relies on Microsoft 365 Business Standard without the required upgrade</li>
 <li>Broad Global Administrator access or unrestricted tenant-wide vendor access</li>
-<li>Users / sites / systems affected:</li>
+</ul>
+<br>
+<h3>Users, Platforms, and Systems Affected</h3>
+<br>
+<ul>
 <li>Approximately 40 corporate laptops</li>
 <li>Mixed Windows and macOS estate</li>
-<li>Microsoft 365 tenant, Microsoft Intune, Microsoft Entra ID, Windows 365 Cloud PC, Apple Business Manager, CrowdStrike Falcon, Coro, Cato Client, Zoom, Slack, Files.com, and one approved AI desktop tool per relevant user</li>
-<li>Dependencies or assumptions already known:</li>
+<li>Microsoft 365 tenant</li>
+<li>Microsoft Intune</li>
+<li>Microsoft Entra ID</li>
+<li>Windows 365 Cloud PC</li>
+<li>Apple Business Manager</li>
+<li>CrowdStrike Falcon</li>
+<li>Coro</li>
+<li>Cato Client</li>
+<li>Zoom</li>
+<li>Slack</li>
+<li>Files.com</li>
+<li>One approved AI desktop tool per relevant user</li>
+</ul>
+<br>
+<h3>Dependencies and Assumptions</h3>
+<br>
+<ul>
 <li>Revolv3 will upgrade from Microsoft 365 Business Standard to Business Premium before work starts</li>
 <li>Business Premium licensing is a prerequisite and must be active before Intune configuration begins</li>
 <li>Revolv3 will provision and manage PIM, named accounts, Windows 365 Cloud PCs, Conditional Access, and log retention infrastructure on its side</li>
@@ -195,85 +260,120 @@
 <br>
 <h2>Commercial and Delivery Context</h2>
 <br>
+<table><tbody>
+<tr><td>Item</td><td>Current Position</td></tr>
+<tr><td>Budget status</td><td>Not stated in source document</td></tr>
+<tr><td>Pricing confirmed</td><td>No</td></tr>
+<tr><td>Target timeline</td><td>Not explicitly stated; license upgrade must complete before Phase 1 and the application list must be finalized before Phase 2</td></tr>
+</tbody></table>
+<br>
+<h3>Hard Deadlines</h3>
+<br>
 <ul>
-<li>Budget status: Not stated in source document</li>
-<li>Pricing confirmed: No</li>
-<li>Target timeline: Not explicitly stated; license upgrade must complete before Phase 1 and application list must be finalized before Phase 2</li>
-<li>Hard deadlines:</li>
-<li>Business Premium licenses active before implementation starts</li>
-<li>Final application list confirmed before Intune configuration begins</li>
-<li>Offboarding of vendor access within 24 hours when an individual leaves the engagement</li>
-<li>Procurement or approval constraints:</li>
+<li>Business Premium licenses must be active before implementation starts</li>
+<li>The final application list must be confirmed before Intune configuration begins</li>
+<li>Vendor access must be offboarded within 24 hours when an individual leaves the engagement</li>
+</ul>
+<br>
+<h3>Procurement and Approval Constraints</h3>
+<br>
+<ul>
 <li>Revolv3 requires written approval for all changes</li>
-<li>Vendor must disclose legal entity, insurance status, and named individuals before engagement begins</li>
+<li>The vendor must disclose legal entity, insurance status, and named individuals before the engagement begins</li>
 <li>Dealbreaker requirements in the source document are non-negotiable unless senior management approves otherwise in writing</li>
 </ul>
 <br>
 <h2>Technical Notes</h2>
 <br>
+<h3>Current Environment</h3>
+<br>
 <ul>
-<li>Current environment:</li>
 <li>Revolv3 currently uses Microsoft 365 Business Standard and plans to move to Business Premium</li>
-<li>Endpoint fleet is mixed Windows and macOS</li>
+<li>The endpoint fleet is mixed Windows and macOS</li>
 <li>Some devices are new, while others are already in active use and need guided enrollment</li>
-<li>CrowdStrike Falcon is the primary EDR/AV platform</li>
-<li>Coro agent is currently deployed but may be retired during the engagement</li>
-<li>Security or compliance requirements:</li>
+<li>CrowdStrike Falcon is the primary EDR and antivirus platform</li>
+<li>Coro is currently deployed but may be retired during the engagement</li>
+</ul>
+<br>
+<h3>Security and Compliance Requirements</h3>
+<br>
+<ul>
 <li>PCI DSS-aligned endpoint controls are mandatory</li>
-<li>Full-disk encryption required on all devices</li>
+<li>Full-disk encryption is required on all devices</li>
 <li>CrowdStrike must be active on all devices</li>
-<li>Host firewall must be enabled and locked</li>
-<li>Devices auto-lock after 5 minutes of inactivity</li>
-<li>Password policy: minimum 12 characters, complexity required, maximum age 180 days, lockout after 10 failed attempts for 15 minutes</li>
+<li>The host firewall must be enabled and locked</li>
+<li>Devices must auto-lock after 5 minutes of inactivity</li>
+<li>Password policy must enforce:</li>
+<li>minimum 12 characters</li>
+<li>complexity requirements</li>
+<li>maximum age of 180 days</li>
+<li>lockout after 10 failed attempts for 15 minutes</li>
 <li>Non-compliant devices must be blocked from Microsoft 365 access via Conditional Access</li>
-<li>All third-party admin activity must be logged and retained for 12 months</li>
-<li>Preferred platforms or technologies:</li>
+<li>All third-party administrative activity must be logged and retained for 12 months</li>
+</ul>
+<br>
+<h3>Preferred Platforms and Technologies</h3>
+<br>
+<ul>
 <li>Microsoft Intune</li>
 <li>Microsoft Entra ID with PIM</li>
 <li>Windows Autopilot</li>
-<li>Apple Automated Device Enrollment via Apple Business Manager</li>
+<li>Apple Automated Device Enrollment through Apple Business Manager</li>
 <li>Windows 365 Cloud PC for vendor access</li>
 <li>Windows LAPS for local admin account management</li>
-<li>Optional Microsoft Endpoint Privilege Management or equivalent for Windows developer elevation</li>
-<li>Constraints or non-negotiables:</li>
+<li>Microsoft Endpoint Privilege Management or equivalent for Windows developer elevation</li>
+</ul>
+<br>
+<h3>Constraints and Non-Negotiables</h3>
+<br>
+<ul>
 <li>No Global Administrator access for vendor personnel</li>
 <li>Vendor role limited to Intune Administrator unless explicitly approved for named tasks</li>
-<li>PIM required; no standing admin role</li>
+<li>PIM is required; no standing admin role</li>
 <li>No shared accounts</li>
-<li>Vendor must access through Revolv3-provisioned Windows 365 Cloud PCs only</li>
+<li>Vendor personnel must access the environment only through Revolv3-provisioned Windows 365 Cloud PCs</li>
 <li>Documentation, scripts, and configuration knowledge must remain owned by Revolv3</li>
 <li>Support coverage must address PST business hours</li>
-<li>Vendor must not interfere with logging or audit controls</li>
+<li>Vendors must not interfere with logging or audit controls</li>
 </ul>
 <br>
 <h2>Competitor and Selection Context</h2>
 <br>
+<h3>Known Competitors</h3>
+<br>
+<p>Not stated in the source document.</p>
+<br>
+<h3>Selection Criteria</h3>
+<br>
 <ul>
-<li>Known competitors: Not stated</li>
-<li>Selection criteria:</li>
 <li>Ability to meet the technical endpoint-management requirements</li>
 <li>Ability to operate within Revolv3&#x27;s PCI DSS and third-party security constraints</li>
 <li>Willingness to work within named-account, PIM, Cloud PC, logging, and change-control requirements</li>
 <li>Ability to support both implementation and ongoing operational support expectations</li>
-<li>Why this opportunity matters:</li>
-<li>This engagement supports Revolv3&#x27;s annual compliance posture</li>
-<li>Endpoint controls are treated as a direct PCI DSS requirement, not an optional improvement</li>
-<li>The operating model must allow Revolv3 to work safely with an external vendor without creating unacceptable audit or access risk</li>
 </ul>
 <br>
 <h2>Open Questions</h2>
 <br>
+<h3>Clarifications Needed Before Proposal Drafting</h3>
+<br>
 <ul>
-<li>What still needs clarification before proposal drafting:</li>
 <li>Confirm the named Revolv3 business and technical stakeholders</li>
 <li>Confirm whether the requested proposal is for implementation only, managed service only, or a combined phased engagement</li>
-<li>Confirm whether the vendor is expected to package Jira, Teams, and mailbox setup tasks in scope or simply operate within Revolv3-provided tooling</li>
+<li>Confirm whether the vendor is expected to package Jira, Teams, and shared mailbox setup tasks in scope or simply operate within Revolv3-provided tooling</li>
 <li>Confirm desired documentation deliverables, handover expectations, and training expectations</li>
-<li>Commercial unknowns:</li>
+</ul>
+<br>
+<h3>Commercial Unknowns</h3>
+<br>
+<ul>
 <li>Budget range and pricing model</li>
 <li>Contract term and renewal expectations</li>
 <li>Whether support is priced as business-hours managed service, retainer, or project plus support</li>
-<li>Scope ambiguities:</li>
+</ul>
+<br>
+<h3>Scope Ambiguities</h3>
+<br>
+<ul>
 <li>Final developer and technical staff application list is still pending</li>
 <li>Final AI desktop tool assignment per user group is still pending</li>
 <li>Coro may be removed during the engagement, which could introduce a change request</li>
@@ -282,18 +382,25 @@
 <br>
 <h2>Source Traceability</h2>
 <br>
+<h3>Primary Source Files Used</h3>
+<br>
 <ul>
-<li>Primary source files used:</li>
 <li><code>input/raw/pdf/Endpoint Management Requirements_V10.pdf</code></li>
 <li><code>input/working/extracted-notes/Endpoint Management Requirements_V10.txt</code></li>
-<li>Key customer wording to preserve:</li>
+</ul>
+<br>
+<h3>Key Customer Wording To Preserve</h3>
+<br>
+<ul>
 <li>&quot;Endpoint security controls are not optional&quot;</li>
 <li>&quot;This is a laptop-only rollout&quot;</li>
 <li>&quot;The vendor should not commence any Intune configuration work until Revolv3 has confirmed that Business Premium licenses are active&quot;</li>
 <li>&quot;All requirements in this document are non-negotiable unless explicitly agreed in writing by Revolv3 senior management&quot;</li>
-<li>Conflicting source details, if any:</li>
-<li>No direct conflicts identified in the PDF; several items are intentionally left open for later confirmation</li>
 </ul>
+<br>
+<h3>Conflicting Source Details</h3>
+<br>
+<p>No direct conflicts were identified in the PDF. Several items are intentionally left open for later confirmation.</p>
     </article>
   </main>
 </body>
