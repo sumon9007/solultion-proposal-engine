@@ -399,7 +399,7 @@ def build_index(section_files: dict[str, list[Path]]) -> None:
       padding: 32px 20px 72px;
     }}
     .hero {{
-      padding: 34px;
+      padding: 36px;
       border: 1px solid rgba(255, 255, 255, 0.5);
       border-radius: 28px;
       background:
@@ -409,6 +409,17 @@ def build_index(section_files: dict[str, list[Path]]) -> None:
       box-shadow: var(--shadow);
       overflow: hidden;
       position: relative;
+    }}
+    .hero-grid {{
+      display: grid;
+      grid-template-columns: minmax(0, 1.7fr) minmax(280px, 0.9fr);
+      gap: 24px;
+      align-items: end;
+      position: relative;
+      z-index: 1;
+    }}
+    .hero-main {{
+      max-width: 78ch;
     }}
     .hero::after {{
       content: "";
@@ -428,29 +439,42 @@ def build_index(section_files: dict[str, list[Path]]) -> None:
     }}
     h1 {{
       margin: 0;
-      max-width: 12ch;
-      font-size: clamp(2.1rem, 5vw, 4.1rem);
-      line-height: 0.96;
+      max-width: 18ch;
+      font-size: clamp(2.4rem, 5vw, 4.6rem);
+      line-height: 0.92;
       letter-spacing: -0.03em;
     }}
     .hero-copy {{
       margin: 16px 0 0;
-      max-width: 64ch;
+      max-width: 60ch;
       color: rgba(255, 255, 255, 0.85);
       line-height: 1.6;
+      font-size: 1.03rem;
     }}
-    .hero-meta {{
-      display: flex;
-      flex-wrap: wrap;
+    .hero-side {{
+      display: grid;
       gap: 12px;
-      margin-top: 22px;
     }}
-    .hero-meta span {{
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.12);
-      backdrop-filter: blur(8px);
-      font-size: 0.92rem;
+    .hero-panel {{
+      padding: 18px 18px 16px;
+      border-radius: 20px;
+      background: rgba(255, 255, 255, 0.10);
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      backdrop-filter: blur(10px);
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }}
+    .hero-panel-label {{
+      margin: 0 0 6px;
+      font-size: 0.76rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: rgba(255, 255, 255, 0.68);
+    }}
+    .hero-panel-value {{
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: #ffffff;
     }}
     .hero-alert {{
       display: inline-flex;
@@ -569,6 +593,12 @@ def build_index(section_files: dict[str, list[Path]]) -> None:
       .hero {{
         padding: 26px;
       }}
+      .hero-grid {{
+        grid-template-columns: 1fr;
+      }}
+      .hero-main {{
+        max-width: none;
+      }}
       .section-heading {{
         display: block;
       }}
@@ -588,13 +618,27 @@ def build_index(section_files: dict[str, list[Path]]) -> None:
 <body>
   <main class="shell">
     <section class="hero">
-      <p class="eyebrow">Solution Proposal Engine</p>
-      <h1>Internal Proposal Operations Hub</h1>
-      <p class="hero-copy">This Pages site is designed as an internal workspace view across the full proposal lifecycle, including intake, drafts, approvals, exports, and package traceability. It is intended for internal operations only.</p>
-      {hero_warning_badge}
-      <div class="hero-meta">
-        <span>{total_files} published file(s)</span>
-        <span>Generated {generated_at}</span>
+      <div class="hero-grid">
+        <div class="hero-main">
+          <p class="eyebrow">Solution Proposal Engine</p>
+          <h1>Internal Proposal Operations Hub</h1>
+          <p class="hero-copy">A structured internal dashboard for intake, drafting, approval, exports, and package traceability across the full proposal lifecycle.</p>
+          {hero_warning_badge}
+        </div>
+        <div class="hero-side">
+          <div class="hero-panel">
+            <p class="hero-panel-label">Published Files</p>
+            <p class="hero-panel-value">{total_files}</p>
+          </div>
+          <div class="hero-panel">
+            <p class="hero-panel-label">Generated</p>
+            <p class="hero-panel-value">{generated_at}</p>
+          </div>
+          <div class="hero-panel">
+            <p class="hero-panel-label">Visibility</p>
+            <p class="hero-panel-value">Internal operations only</p>
+          </div>
+        </div>
       </div>
     </section>
     {warning_banner}
