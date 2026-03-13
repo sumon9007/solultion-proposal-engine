@@ -1,0 +1,39 @@
+{
+  "stem": "2026-03-13_revolv3_endpoint-management",
+  "created_at": "2026-03-13T13:13:29",
+  "client": "Revolv3",
+  "solution_type": "endpoint-management",
+  "artifacts": {
+    "proposal": {
+      "draft": "/home/suruz/Claude-Workspace/01-PROJECTS/solution-proposal-engine/output/drafts/proposals/2026-03-13_revolv3_endpoint-management_proposal_draft.md",
+      "approved": null,
+      "status": "pending",
+      "commercial_safety": false
+    },
+    "exec-summary": {
+      "draft": "/home/suruz/Claude-Workspace/01-PROJECTS/solution-proposal-engine/output/drafts/exec-summaries/2026-03-13_revolv3_endpoint-management_exec-summary_draft.md",
+      "approved": null,
+      "status": "pending",
+      "commercial_safety": false
+    },
+    "scope": {
+      "draft": "/home/suruz/Claude-Workspace/01-PROJECTS/solution-proposal-engine/output/drafts/scopes/2026-03-13_revolv3_endpoint-management_scope_draft.md",
+      "approved": null,
+      "status": "pending",
+      "commercial_safety": false
+    },
+    "delivery-plan": {
+      "draft": "/home/suruz/Claude-Workspace/01-PROJECTS/solution-proposal-engine/output/drafts/delivery-plans/2026-03-13_revolv3_endpoint-management_delivery-plan_draft.md",
+      "approved": null,
+      "status": "pending",
+      "commercial_safety": false
+    },
+    "pricing": {
+      "draft": "/home/suruz/Claude-Workspace/01-PROJECTS/solution-proposal-engine/output/drafts/pricing/2026-03-13_revolv3_endpoint-management_pricing_draft.md",
+      "approved": null,
+      "status": "pending",
+      "commercial_safety": true
+    }
+  },
+  "status": "draft"
+}
